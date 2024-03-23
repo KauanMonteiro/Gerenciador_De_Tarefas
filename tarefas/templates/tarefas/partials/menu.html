@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-dJ+x2FgkIwsrbxYnM4/P9q+Uy+byq/ZYQXaa1mlJCT7Nn+TKh4V/PrCJplTWH5NfxXzM8vgA1dR0+ssJTk6H9w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+        <div class="sidebar" id="mySidebar">
+            <ul>
+                <li><a href="{% url 'home' %}"><i class="fa fa-home"></i> Home</a></li>
+            </ul>
+        </div>
+
+        <div class="content">
+            <button class="openbtn" onclick="toggleNav()"><i class="fa fa-align-justify"></i></button>
+        </div>
+    </div>
+
+    <script>
+        function toggleNav() {
+            var sidebar = document.getElementById("mySidebar");
+            var content = document.querySelector(".content");
+            if (sidebar.style.width === "250px") {
+                sidebar.style.width = "0";
+                content.classList.remove("shifted");
+            } else {
+                sidebar.style.width = "250px";
+                content.classList.add("shifted");
+            }
+        }
+
+        window.onclick = function (event) {
+            var sidebar = document.getElementById("mySidebar");
+            var openbtn = document.querySelector(".openbtn");
+            var content = document.querySelector(".content");
+            if (event.target !== sidebar && event.target !== openbtn) {
+                sidebar.style.width = "0";
+                content.classList.remove("shifted");
+            }
+        }
+    </script>
+</body>
+</html>
