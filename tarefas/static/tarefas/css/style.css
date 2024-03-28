@@ -120,21 +120,28 @@
 }
 
 .tarefa {
-  background: #fff;
+  background: #ffffff;
   box-shadow: -5px 5px 1px rgba(0, 0, 0, .2);
   transform: scale(1);
   transition: all 300ms ease-in-out;
   border-radius: 0rem;
   overflow: hidden;
+  margin-bottom: 2rem;
+  display: grid;
+  place-items: center; 
+  flex: 1 1 30%;
+  margin-right: 2rem;
 }
 
-.tarefa img {
-  max-width: 100%;
-}
 
 .tarefa-list-item {
   max-width: 64rem;
   height: fit-content;
+
+}
+
+.tarefa:last-child {
+  margin-right: 0;
 }
 
 .tarefa-list-item:hover {
@@ -159,6 +166,12 @@
 .tarefa-content {
   padding: 3rem;
   padding-top: 2rem;
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem;
+  color: #fff;
+  border-bottom-left-radius: 2rem;
+  border-bottom-right-radius: 2rem;
 }
 
 .tarefa-author-item {
@@ -199,31 +212,23 @@
   font-size: 1.6rem;
 }
 
-.tarefa-status {
+.tarefa-detalhe {
   display: flex;
   align-items: center;
 }
 
-.tarefa-status button {
+.tarefa-detalhe button {
   background-color: #4CAF50;
   color: white;
   padding: 10px 0; 
   border: none;
   border-radius: 0px;
   cursor: pointer;
-  width: 100%; 
+  width: 60rem; 
   transition: background-color 0.3s;
 }
 
-.tarefa-status button:hover {
+.tarefa-detalhe button:hover {
   background-color: #45a049;
 }
 
-.tarefa-footer {
-  display: flex;
-  justify-content: flex-end;
-  padding: 1rem;
-  color: #fff;
-  border-bottom-left-radius: 2rem;
-  border-bottom-right-radius: 2rem;
-}

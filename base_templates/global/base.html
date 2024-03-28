@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    {% include 'tarefas/partials/head.html' %}
+    {% block title %}{% endblock title %}
+</head>
+
+<body>
+    {% include 'tarefas/partials/header.html' %}
+    <main class="main-content-container">
+        {% block content %}{% endblock content %}
+    </main>
+    {% include 'tarefas/partials/footer.html' %}
+</body>
+</html>

@@ -5,7 +5,9 @@
     {% include "tarefas/partials/menu.html" %}
     <main class="main-content-container">
         <div class="main-content main-content-list container">
+            {% for tarefa in tarefas %}
             {% include "tarefas/partials/tarefa.html" %}
+            {% endfor %}
         </div>
     </main>
 </body>
