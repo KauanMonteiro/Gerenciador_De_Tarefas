@@ -157,7 +157,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .tarefa-detalhe button {
-  background-color: #4CAF50;
+  background-color: #202020;
   color: white;
   padding: 10px 0;
   border: none;
@@ -169,9 +169,19 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .tarefa-detalhe button:hover {
-  background-color: #45a049;
+  background-color: #404040;
 }
 
+.tarefa_finalizada {
+  padding: 10px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  max-width: 30rem;
+  background-color: #45a049;
+  color: #ffffff;
+
+}
 @media only screen and (max-width: 768px) {
   .container {
       padding: 2rem;
