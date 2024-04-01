@@ -1,0 +1,9 @@
+{% extends "global/base.html" %}
+
+{% block content %}
+<div>
+    {% for tarefa in tarefas %}
+        {% include "tarefas/partials/tarefa.html" with tarefa=tarefa %}
+    {% endfor %}
+</div>
+{% endblock content %}
