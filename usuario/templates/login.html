@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'usuario/css/style_usuario.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+
+        {% if status == '1' %}
+        <div class="alert alert-danger" role="alert">
+            Email ou senha inválidos
+        </div>
+        {% endif %}
+
+        {% if status == '2' %}
+        <div class="alert alert-danger" role="alert">
+            Faça login antes de tentar acessar o sistema
+        </div>
+        {% endif %}
+
+        <form method="POST" action="{% url 'validar_login' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <input name="email" class="form-control" type="text" placeholder="Email...">
+            </div>
+            <div class="form-group">
+                <input name="senha" class="form-control" type="password" placeholder="Senha...">
+            </div>
+            <input class="btn btn-info btn-lg" type="submit" value="Enviar">
+        </form>
+
+        <!-- Fim do conteúdo específico da página -->
+
+        <p>Não tem uma conta? <a href="{% url 'cadastro' %}">Cadastre-se aqui</a>.</p>
+    </div>
+</body>
+</html>
