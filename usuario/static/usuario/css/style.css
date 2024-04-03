@@ -13,7 +13,7 @@ body {
   .container {
     width: 400px;
     padding: 20px;
-    background-color: #072d77; /* Cor de fundo */
+    background-color: #202020; /* Cor de fundo */
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   }
