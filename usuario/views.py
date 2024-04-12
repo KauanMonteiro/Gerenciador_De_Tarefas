@@ -39,7 +39,7 @@ def valida_cadastro(request):
 
             return redirect(reverse('cadastro') + '?status=0')
         except Exception as e:
-            print(e)  # Handle the exception properly
+            print(e) 
             return redirect(reverse('cadastro') + '?status=4')
 
     return redirect(reverse('cadastro'))

@@ -1,11 +1,12 @@
 from django.shortcuts import render, get_object_or_404 , redirect
 from django.urls import reverse 
-from .models import Tarefas
+from .models import Tarefas, Equipe
 
 def home(request):
     if 'usuario' not in request.session:
         return redirect('login')
-    tarefas_incompletas = Tarefas.objects.filter(concluida=False)
+    usuario = request.session['usuario']
+    tarefas_incompletas = Tarefas.objects.filter(concluida=False, tarefa_para =usuario)
     return render(request, 'tarefas/pages/home.html', {'tarefas': tarefas_incompletas})
 
 def tarefa_detail(request, id):
@@ -27,5 +28,20 @@ def concluir_tarefa(request, id):
 def area_usuario(request):
     if 'usuario' not in request.session:
         return redirect('login')
-    tarefas = Tarefas.objects.all()
+    usuario = request.session['usuario']
+    tarefas = Tarefas.objects.filter( tarefa_para=usuario)
     return render(request, 'tarefas/pages/area_usuario.html', {'tarefas': tarefas})
+
+def criar_equipe(request):
+    if request.method == 'POST':
+        nome = request.POST.get('nome')
+
+        if len(nome.strip()) == 0:
+            return render(request, 'tarefas/pages/criar_equipe.html')
+        
+        else:
+            equipe = Equipe(nome_equipe=nome)
+            equipe.save()
+            return redirect(reverse('home'))
+    
+    return render(request, 'tarefas/pages/criar_equipe.html')

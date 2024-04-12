@@ -192,3 +192,46 @@ h1, h2, h3, h4, h5, h6 {
       margin-bottom: 1rem;
   }
 }
+
+
+
+
+.cadastro_equipe {
+  width: 400px;
+  padding: 20px;
+  background-color: #202020; /* Cor de fundo */
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  justify-content: center; 
+  align-items: center; 
+}
+
+.cadastro_equipe label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.cadastro_equipe input[type="text"] {
+  width: calc(100% - 20px);
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 0.1); /* Fundo transparente */
+  color: white;
+}
+
+.cadastro_equipe button[type="submit"] {
+  width: calc(100% - 20px);
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: transparent; /* Botão transparente */
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cadastro_equipe button[type="submit"]:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Cor de fundo ao passar o mouse */
+}
