@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404 , redirect
 from django.urls import reverse 
 from .models import Tarefas, Equipe
+from usuario.models import Usuario
 
 def home(request):
     if 'usuario' not in request.session:
@@ -33,15 +34,24 @@ def area_usuario(request):
     return render(request, 'tarefas/pages/area_usuario.html', {'tarefas': tarefas})
 
 def criar_equipe(request):
-    if request.method == 'POST':
-        nome = request.POST.get('nome')
-
-        if len(nome.strip()) == 0:
-            return render(request, 'tarefas/pages/criar_equipe.html')
-        
-        else:
-            equipe = Equipe(nome_equipe=nome)
-            equipe.save()
-            return redirect(reverse('home'))
+    if 'usuario' not in request.session:
+        return redirect('login')
     
-    return render(request, 'tarefas/pages/criar_equipe.html')
+    usuario_id = request.session['usuario']
+    usuario = Usuario.objects.get(pk=usuario_id)
+    
+    if usuario.cargo != 'Professor':
+        return render(request, 'tarefas/pages/home.html')
+    else:
+        if request.method == 'POST':
+            nome = request.POST.get('nome')
+
+            if len(nome.strip()) == 0:
+                return render(request, 'tarefas/pages/criar_equipe.html')
+            
+            else:
+                equipe = Equipe(nome_equipe=nome)
+                equipe.save()
+                return redirect(reverse('home'))
+        
+        return render(request, 'tarefas/pages/criar_equipe.html')

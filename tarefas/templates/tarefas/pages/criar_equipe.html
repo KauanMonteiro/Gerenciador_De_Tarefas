@@ -1,9 +1,9 @@
-{% extends "global/base.html" %}
-
+{% include "tarefas/partials/head.html" %}
 {% block content %}
-<h2>Cadastro de Equipe</h2>
-<div class="cadastro_equipe">
+{% include "tarefas/partials/menu.html" %}
 
+<div class="cadastro_equipe">
+<h2>Cadastro de Equipe</h2>
     <form method="POST" action="{% url 'criar_equipe' %}">
         {% csrf_token %}
         <div>
