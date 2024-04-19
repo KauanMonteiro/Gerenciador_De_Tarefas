@@ -6,9 +6,16 @@ from usuario.models import Usuario
 def home(request):
     if 'usuario' not in request.session:
         return redirect('login')
-    usuario = request.session['usuario']
-    tarefas_incompletas = Tarefas.objects.filter(concluida=False, tarefa_para =usuario)
-    return render(request, 'tarefas/pages/home.html', {'tarefas': tarefas_incompletas})
+    
+    usuario_id = request.session['usuario']
+    usuario = Usuario.objects.get(pk=usuario_id)
+    
+    if usuario.equipes.exists():
+        equipe_usuario = usuario.equipes.first()
+        tarefas_incompletas = Tarefas.objects.filter(concluida=False, tarefa_para=equipe_usuario)
+        return render(request, 'tarefas/pages/home.html', {'tarefas': tarefas_incompletas})
+    else:
+        return render(request, 'tarefas/pages/home.html')
 
 def tarefa_detail(request, id):
     if 'usuario' not in request.session:
@@ -25,13 +32,23 @@ def concluir_tarefa(request, id):
         tarefa.save()
     return redirect(reverse('home'))
 
-
 def area_usuario(request):
     if 'usuario' not in request.session:
         return redirect('login')
-    usuario = request.session['usuario']
-    tarefas = Tarefas.objects.filter( tarefa_para=usuario)
-    return render(request, 'tarefas/pages/area_usuario.html', {'tarefas': tarefas})
+    
+    usuario_id = request.session['usuario']
+    usuario = Usuario.objects.get(pk=usuario_id)
+    
+    if usuario.equipes.exists():
+        equipes_usuario = usuario.equipes.all()
+        tarefas_equipes_usuario = []
+        for equipe in equipes_usuario:
+            tarefas_equipe = Tarefas.objects.filter(tarefa_para=equipe)
+            tarefas_equipes_usuario.extend(tarefas_equipe)
+        
+        return render(request, 'tarefas/pages/area_usuario.html', {'tarefas': tarefas_equipes_usuario})
+    else:
+        return render(request, 'tarefas/pages/home.html')
 
 def criar_equipe(request):
     if 'usuario' not in request.session:

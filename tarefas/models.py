@@ -15,7 +15,7 @@ class Tarefas(models.Model):
      data_criacao = models.DateTimeField(auto_now_add=True)
      data_limite = models.DateTimeField(auto_now_add=False)
      concluida = models.BooleanField(default=False)
-     tarefa_para = models.ForeignKey(Usuario, on_delete=models.CASCADE, null= False)
+     tarefa_para = models.ForeignKey(Equipe, on_delete=models.CASCADE, null= False)
 
      def __str__(self):
           return self.titulo
