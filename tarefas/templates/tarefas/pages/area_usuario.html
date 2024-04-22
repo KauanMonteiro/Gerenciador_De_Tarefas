@@ -2,8 +2,8 @@
 
 {% block content %}
 <div>
-    {% for tarefa in tarefas %}
-        {% include "tarefas/partials/tarefa.html" with tarefa=tarefa %}
+    {% for equipe in equipes %}
+        {% include "tarefas/partials/equipe.html" %}
     {% endfor %}
 </div>
 {% endblock content %}

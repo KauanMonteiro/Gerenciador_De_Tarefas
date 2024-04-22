@@ -41,12 +41,19 @@ def area_usuario(request):
     
     if usuario.equipes.exists():
         equipes_usuario = usuario.equipes.all()
-        tarefas_equipes_usuario = []
-        for equipe in equipes_usuario:
-            tarefas_equipe = Tarefas.objects.filter(tarefa_para=equipe)
-            tarefas_equipes_usuario.extend(tarefas_equipe)
+        tarefas_equipes_usuario = Tarefas.objects.filter(tarefa_para__in=equipes_usuario)
         
-        return render(request, 'tarefas/pages/area_usuario.html', {'tarefas': tarefas_equipes_usuario})
+        tarefas_nao_concluidas = tarefas_equipes_usuario.filter(concluida=False).count()
+        total_tarefas = tarefas_equipes_usuario.count()
+        tarefas_concluidas = tarefas_equipes_usuario.filter(concluida=True).count()
+        
+        return render(request, 'tarefas/pages/area_usuario.html', {
+            'tarefas': tarefas_equipes_usuario,
+            'equipes': equipes_usuario,
+            'tarefas_nao_concluidas': tarefas_nao_concluidas,
+            'total_tarefas': total_tarefas,
+            'tarefas_concluidas': tarefas_concluidas
+        })
     else:
         return render(request, 'tarefas/pages/home.html')
 

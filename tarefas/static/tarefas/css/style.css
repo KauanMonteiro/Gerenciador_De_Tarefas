@@ -184,17 +184,37 @@ h1, h2, h3, h4, h5, h6 {
 }
 @media only screen and (max-width: 768px) {
   .container {
-      padding: 2rem;
+    padding: 2rem;
+  }
+  
+  .tarefa {
+    flex: 1 1 100%;
+    margin-bottom: 1rem;
   }
 
-  .tarefa {
-      flex: 1 1 100%;
-      margin-bottom: 1rem;
+  .cadastro_equipe {
+    width: 90%;
+    padding: 2rem;
+    max-width: 600px;
   }
 }
 
+@media only screen and (max-width: 480px) {
+  .container {
+    padding: 1rem;
+  }
 
+  .tarefa {
+    flex: 1 1 100%;
+    margin-bottom: 1rem;
+  }
 
+  .cadastro_equipe {
+    width: 90%;
+    padding: 1rem;
+    max-width: 400px;
+  }
+}
 
 .cadastro_equipe {
   width: 600px;
@@ -244,5 +264,62 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .cadastro_equipe button[type="submit"]:hover {
-  background-color: rgba(255, 255, 255, 0.1); /* Cor de fundo ao passar o mouse */
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.equipe {
+  background: #ffffff;
+  box-shadow: -5px 5px 1px rgba(0, 0, 0, .2);
+  transition: all 300ms ease-in-out;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.equipe-list-item {
+  padding: 1.5rem;
+}
+
+.equipe-nome-container {
+  padding-bottom: 2rem;
+}
+
+.equipe-nome-container a {
+  text-decoration: none;
+}
+
+.equipe-content {
+  padding: 2rem;
+  color: #444;
+}
+
+.equipe-meta-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem;
+  background: #e0e0e0;
+}
+
+.equipe-meta {
+  flex: 1;
+}
+
+.equipe-meta-litle {
+  font-size: 1.6rem;
+}
+
+.equipe-detalhe button {
+  background-color: #202020;
+  color: white;
+  padding: 10px 0;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  width: 100%;
+  max-width: 20rem;
+  transition: background-color 0.3s;
+}
+
+.equipe-detalhe button:hover {
+  background-color: #404040;
 }
