@@ -6,14 +6,14 @@ from usuario.models import Usuario
 def home(request):
     if 'usuario' not in request.session:
         return redirect('login')
-    
+
     usuario_id = request.session['usuario']
     usuario = Usuario.objects.get(pk=usuario_id)
     
     if usuario.equipes.exists():
         equipe_usuario = usuario.equipes.first()
         tarefas_incompletas = Tarefas.objects.filter(concluida=False, tarefa_para=equipe_usuario)
-        return render(request, 'tarefas/pages/home.html', {'tarefas': tarefas_incompletas})
+        return render(request, 'tarefas/pages/home.html', {'tarefas': tarefas_incompletas, 'usuario': usuario})
     else:
         return render(request, 'tarefas/pages/home.html')
 
@@ -48,6 +48,7 @@ def area_usuario(request):
         tarefas_concluidas = tarefas_equipes_usuario.filter(concluida=True).count()
         
         return render(request, 'tarefas/pages/area_usuario.html', {
+            'usuario': usuario,
             'tarefas': tarefas_equipes_usuario,
             'equipes': equipes_usuario,
             'tarefas_nao_concluidas': tarefas_nao_concluidas,

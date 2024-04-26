@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,45 +6,47 @@
 </head>
 <body>
 
-        <div class="sidebar" id="mySidebar">
-            <ul>
-                <li><a href="{% url 'home' %}"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="{% url 'area_usuario' %}"><i class="fas fa-user"></i> area do usuario </a></li>
-                <li><a href="{% url "criar_equipe" %}">criar sala</a></li>
-                <li><a href="{% url 'sair' %}"><i class="fa fa-sign-out-alt"></i> Sair</a></li>
-                <li><a href="{% url 'login' %}"><i class="fa fa-sign-in-alt"></i> Login</a></li>
+<div class="sidebar" id="mySidebar">
+    <ul>
+        <li><a href="{% url 'home' %}"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="{% url 'area_usuario' %}"><i class="fas fa-user"></i> Área do Usuário</a></li>
+        {% if usuario.cargo == 'Professor' %}
+        <li><a href="{% url 'criar_equipe' %}">Criar Sala</a></li>
+        {% endif %}
+        <li><a href="{% url 'sair' %}"><i class="fa fa-sign-out-alt"></i> Sair</a></li>
+        {% if usuario.cargo == 'Professor' %}
+        <li><a href="{% url 'cadastro' %}"><i class="fa fa-sign-in-alt"></i> Cadastrar</a></li>
+        {% endif %}
+    </ul>
+</div>
 
+<div class="content">
+    <button class="openbtn" onclick="toggleNav()"><i class="fa fa-align-justify"></i></button>
+</div>
 
-            </ul>
-        </div>
-
-        <div class="content">
-            <button class="openbtn" onclick="toggleNav()"><i class="fa fa-align-justify"></i></button>
-        </div>
-    </div>
-
-    <script>
-        function toggleNav() {
-            var sidebar = document.getElementById("mySidebar");
-            var content = document.querySelector(".content");
-            if (sidebar.style.width === "250px") {
-                sidebar.style.width = "0";
-                content.classList.remove("shifted");
-            } else {
-                sidebar.style.width = "250px";
-                content.classList.add("shifted");
-            }
+<script>
+    function toggleNav() {
+        var sidebar = document.getElementById("mySidebar");
+        var content = document.querySelector(".content");
+        if (sidebar.style.width === "250px") {
+            sidebar.style.width = "0";
+            content.classList.remove("shifted");
+        } else {
+            sidebar.style.width = "250px";
+            content.classList.add("shifted");
         }
+    }
 
-        window.onclick = function (event) {
-            var sidebar = document.getElementById("mySidebar");
-            var openbtn = document.querySelector(".openbtn");
-            var content = document.querySelector(".content");
-            if (event.target !== sidebar && event.target !== openbtn) {
-                sidebar.style.width = "0";
-                content.classList.remove("shifted");
-            }
+    window.onclick = function (event) {
+        var sidebar = document.getElementById("mySidebar");
+        var openbtn = document.querySelector(".openbtn");
+        var content = document.querySelector(".content");
+        if (event.target !== sidebar && event.target !== openbtn) {
+            sidebar.style.width = "0";
+            content.classList.remove("shifted");
         }
-    </script>
+    }
+</script>
+
 </body>
 </html>

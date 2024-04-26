@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 {% load static %}
+
 <html lang="en">
 <head>
+    {% include "tarefas/partials/head.html" %}
+    {% include "tarefas/partials/menu.html" %}
     <link rel="stylesheet" href="{% static 'usuario/css/style.css' %}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
+    
 </head>
 <body>
+    
     <div class="container">
         <h2>Cadastro</h2>
         {% if status %}

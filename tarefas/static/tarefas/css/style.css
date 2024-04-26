@@ -156,7 +156,8 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 1.6rem;
 }
 
-.tarefa-detalhe button {
+.tarefa-detalhe button,
+.tarefa_finalizada {
   background-color: #202020;
   color: white;
   padding: 10px 0;
@@ -168,57 +169,15 @@ h1, h2, h3, h4, h5, h6 {
   transition: background-color 0.3s;
 }
 
-.tarefa-detalhe button:hover {
+.tarefa-detalhe button:hover,
+.tarefa_finalizada:hover {
   background-color: #404040;
 }
 
-.tarefa_finalizada {
-  padding: 10px 0;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  max-width: 30rem;
-  background-color: #45a049;
-  color: #ffffff;
-
-}
-@media only screen and (max-width: 768px) {
-  .container {
-    padding: 2rem;
-  }
-  
-  .tarefa {
-    flex: 1 1 100%;
-    margin-bottom: 1rem;
-  }
-
-  .cadastro_equipe {
-    width: 90%;
-    padding: 2rem;
-    max-width: 600px;
-  }
-}
-
-@media only screen and (max-width: 480px) {
-  .container {
-    padding: 1rem;
-  }
-
-  .tarefa {
-    flex: 1 1 100%;
-    margin-bottom: 1rem;
-  }
-
-  .cadastro_equipe {
-    width: 90%;
-    padding: 1rem;
-    max-width: 400px;
-  }
-}
-
 .cadastro_equipe {
-  width: 600px;
-  padding: 30px;
+  width: 90%;
+  padding: 2rem;
+  max-width: 600px;
   background-color: #202020;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
@@ -230,7 +189,8 @@ h1, h2, h3, h4, h5, h6 {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-.cadastro_equipe h2{
+
+.cadastro_equipe h2 {
   justify-content: center;
   align-items: center;
   color: white;
@@ -266,6 +226,7 @@ h1, h2, h3, h4, h5, h6 {
 .cadastro_equipe button[type="submit"]:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
+
 .equipe {
   background: #ffffff;
   box-shadow: -5px 5px 1px rgba(0, 0, 0, .2);
@@ -273,7 +234,12 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 0.5rem;
   overflow: hidden;
   margin-bottom: 2rem;
+  margin-left: 20px;
   text-align: center;
+  height: 270px;
+  width: 450px;
+  display: inline-block; 
+  vertical-align: top;
 }
 
 .equipe-list-item {
@@ -322,4 +288,69 @@ h1, h2, h3, h4, h5, h6 {
 
 .equipe-detalhe button:hover {
   background-color: #404040;
+}
+
+.bnt-add-usuario button {
+  background-color: #009c2c;
+  margin-top: 5px;
+  color: white;
+  padding: 10px 0;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  width: 100%;
+  max-width: 200px; 
+  transition: background-color 0.3s;
+}
+
+.bnt-add-usuario button:hover {
+  background-color: #45a049;
+}
+
+@media only screen and (max-width: 1200px) {
+  .container {
+    padding: 2rem;
+  }
+
+  .cadastro_equipe {
+    width: 90%;
+    padding: 2rem;
+    max-width: 600px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .container {
+    padding: 2rem;
+  }
+  
+  .tarefa,
+  .equipe {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .cadastro_equipe {
+    width: 90%;
+    padding: 2rem;
+    max-width: 600px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .tarefa,
+  .equipe {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .cadastro_equipe {
+    width: 90%;
+    padding: 1rem;
+    max-width: 400px;
+  }
 }

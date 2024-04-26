@@ -14,11 +14,19 @@
             <div class='tarefas-concluidas'>
                 <span>Tarefas concluídas: {{ tarefas_concluidas }}</span>
             </div>
+
+            
         </div>
         <div class="equipe-detalhe">
             <a href="">
                 <button><i class="fas fa-eye"></i> Ver Mais</button>
             </a>
+            
+            {% if usuario.cargo == 'Professor' %}
+            <div class="bnt-add-usuario">
+                <button><i class='fas fa-plus'></i> adicionar usuario</button>
+            </div>
+            {% endif %}
         </div>
     </div>
 </div>

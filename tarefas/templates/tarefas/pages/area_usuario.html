@@ -2,6 +2,12 @@
 
 {% block content %}
 <div>
+    {% if usuario.cargo == 'Professor' %}
+    <p>O usuário é um professor.</p>
+{% else %}
+    <p>O usuário não é um professor.</p>
+{% endif %}
+
     {% for equipe in equipes %}
         {% include "tarefas/partials/equipe.html" %}
     {% endfor %}
