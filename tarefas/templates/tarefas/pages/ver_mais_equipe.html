@@ -1,0 +1,9 @@
+{% extends "global/base.html" %}
+
+{% block content %}
+
+{% for tarefa in tarefas %}
+    {% include "tarefas/partials/tarefa.html" %}
+{% endfor %}
+
+{% endblock content %}

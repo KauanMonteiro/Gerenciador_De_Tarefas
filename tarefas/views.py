@@ -80,3 +80,12 @@ def criar_equipe(request):
                 return redirect(reverse('home'))
         
         return render(request, 'tarefas/pages/criar_equipe.html')
+
+def equipe_detalhe(request, id):
+    if 'usuario' not in request.session:
+        return redirect('login')
+    
+    equipe = get_object_or_404(Equipe, pk=id)
+    tarefas_equipe = Tarefas.objects.filter(tarefa_para=equipe)
+    
+    return render(request, 'tarefas/pages/ver_mais_equipe.html', {'equipe': equipe, 'tarefas': tarefas_equipe})
