@@ -139,6 +139,8 @@ h1, h2, h3, h4, h5, h6 {
   color: #444;
 }
 
+
+
 .tarefa-meta-container {
   display: flex;
   justify-content: space-between;
@@ -155,9 +157,23 @@ h1, h2, h3, h4, h5, h6 {
 .tarefa-meta-litle {
   font-size: 1.6rem;
 }
+.tarefa_finalizada{
+  background-color: #088004;
+  color: white;
+  padding: 10px 0;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  width: 100%;
+  max-width: 20rem;
+  transition: background-color 0.3s;
+}
 
-.tarefa-detalhe button,
-.tarefa_finalizada {
+.tarefa_finalizada:hover{
+  background-color: #1c9918
+}
+
+.tarefa-detalhe button{
   background-color: #202020;
   color: white;
   padding: 10px 0;
@@ -169,8 +185,7 @@ h1, h2, h3, h4, h5, h6 {
   transition: background-color 0.3s;
 }
 
-.tarefa-detalhe button:hover,
-.tarefa_finalizada:hover {
+.tarefa-detalhe button:hover {
   background-color: #404040;
 }
 

@@ -15,25 +15,28 @@
         </div>
     </div>
 
-    {% if tarefa.concluida %}
+    {% if usuario in tarefa.concluida.all %}
     <footer class="tarefa-content"> 
         <div class="tarefa_finalizada">
             <span>Finalizada</span>
         </div>
     </footer>
     {% else %}
-    {% if is_detail_page is not True %}
-    <footer class="tarefa-content">
-        <div class="tarefa-detalhe">
-            <a href="{% url 'tarefa_detail' tarefa.id %}"><button><i class="fas fa-eye"></i> Ver Mais</button></a>
-        </div>
-
+        {% if is_detail_page %}
+        <footer class="tarefa-content">
+            <p>{{ tarefa.descricao }}</p>
+            <div class="tarefa-detalhe">
+                <a href="{% url 'concluir_tarefa' tarefa.id %}"><button><i class="fas fa-check"></i> Finalizar</button></a>
+            </div>
+        </footer>
         {% else %}
-        <p>{{ tarefa.descricao }}</p>
-        <div class="tarefa-detalhe">
-            <a href="{% url 'concluir_tarefa' tarefa.id %}"><button><i class="fas fa-check"></i> finalizar</button></a>
-        </div>
-    </footer>
+        <footer class="tarefa-content">
+            <div class="tarefa-detalhe">
+                <a href="{% url 'tarefa_detail' tarefa.id %}"><button><i class="fas fa-eye"></i> Ver Mais</button></a>
+            </div>
+        </footer>
+        {% endif %}
     {% endif %}
-    {% endif %}
+    
+    
 </div>

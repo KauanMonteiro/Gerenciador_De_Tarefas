@@ -14,7 +14,7 @@ class Tarefas(models.Model):
      descricao = models.TextField('')
      data_criacao = models.DateTimeField(auto_now_add=True)
      data_limite = models.DateTimeField(auto_now_add=False)
-     concluida = models.BooleanField(default=False)
+     concluida = models.ManyToManyField(Usuario, blank=True, null=True)
      tarefa_para = models.ForeignKey(Equipe, on_delete=models.CASCADE, null= False)
 
      def __str__(self):
