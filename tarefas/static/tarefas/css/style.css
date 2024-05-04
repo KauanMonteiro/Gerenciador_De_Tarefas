@@ -352,6 +352,63 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+.cadastro_equipe {
+  width: 90%;
+  padding: 2rem;
+  max-width: 600px;
+  background-color: #202020;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.cadastro_equipe h2 {
+  color: white;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.cadastro_equipe label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: white;
+}
+
+.cadastro_equipe input[type="text"] {
+  width: calc(100% - 20px);
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.bnt-add-usuario button {
+  background-color: #009c2c;
+  margin-top: 5px;
+  color: white;
+  padding: 10px 0;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  width: 100%;
+  max-width: 200px;
+  transition: background-color 0.3s;
+}
+
+.bnt-add-usuario button:hover {
+  background-color: #45a049;
+}
+
+
 @media only screen and (max-width: 480px) {
   .container {
     padding: 1rem;

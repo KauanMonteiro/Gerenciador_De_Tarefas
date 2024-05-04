@@ -99,3 +99,26 @@ def equipe_detalhe(request, id):
     tarefas_equipe = Tarefas.objects.filter(tarefa_para=equipe)
     
     return render(request, 'tarefas/pages/ver_mais_equipe.html', {'equipe': equipe, 'tarefas': tarefas_equipe, 'usuario': usuario})
+    
+
+def adicao_usuario(request, equipe_id):
+    if 'usuario' not in request.session:
+        return redirect('login')
+    
+    if request.method == 'POST':
+        userId = request.POST.get('userId')
+
+        if len(userId.strip()) == 0:
+            return redirect('adicao_usuario', equipe_id=equipe_id)
+        
+        else:
+            try:
+                equipe = Equipe.objects.get(id=equipe_id)
+                usuario = Usuario.objects.get(id=userId)
+                equipe.membros.add(usuario)
+                equipe.save()
+                return redirect('area_usuario')
+            except Equipe.DoesNotExist:
+                pass
+
+    return render(request, 'tarefas/pages/adicionar_usuario.html',{'equipe_id': equipe_id})

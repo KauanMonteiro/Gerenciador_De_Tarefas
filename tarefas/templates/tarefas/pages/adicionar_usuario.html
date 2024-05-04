@@ -1,0 +1,19 @@
+{% include "tarefas/partials/head.html" %}
+{% block content %}
+{% include "tarefas/partials/menu.html" %}
+<div class="container">
+  <div class="cadastro_equipe">
+      <h2>Adicionar Usuário à Equipe</h2>
+      <form action="{% url 'adicao_usuario' equipe_id %}" method="post">
+          {% csrf_token %}
+          <label for="userId">ID do Usuário:</label>
+          <input type="text" id="userId" name="userId" required>
+          <div class="bnt-add-usuario">
+              <button type="submit">Adicionar à Equipe</button>
+          </div>
+      </form>
+  </div>
+</div>
+
+
+  {% endblock content %}
