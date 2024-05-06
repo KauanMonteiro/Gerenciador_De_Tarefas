@@ -122,3 +122,6 @@ def adicao_usuario(request, equipe_id):
                 pass
 
     return render(request, 'tarefas/pages/adicionar_usuario.html',{'equipe_id': equipe_id})
+
+def adicionar_tarefas(request):
+    pass

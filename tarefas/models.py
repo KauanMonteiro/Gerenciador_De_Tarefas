@@ -10,7 +10,7 @@ class Equipe(models.Model):
 
 class Tarefas(models.Model):
      titulo = models.CharField(max_length=100)
-     autor = models.CharField(max_length=50)
+     autor = models.ForeignKey(Usuario, on_delete=models.CASCADE,related_name='tarefas_autor')
      descricao = models.TextField('')
      data_criacao = models.DateTimeField(auto_now_add=True)
      data_limite = models.DateTimeField(auto_now_add=False)

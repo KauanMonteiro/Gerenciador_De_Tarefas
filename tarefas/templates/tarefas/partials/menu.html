@@ -13,10 +13,13 @@
         {% if usuario.cargo == 'Professor' %}
         <li><a href="{% url 'criar_equipe' %}">Criar Sala</a></li>
         {% endif %}
-        <li><a href="{% url 'sair' %}"><i class="fa fa-sign-out-alt"></i> Sair</a></li>
         {% if usuario.cargo == 'Professor' %}
         <li><a href="{% url 'cadastro' %}"><i class="fa fa-sign-in-alt"></i> Cadastrar</a></li>
         {% endif %}
+        {% if usuario.cargo == 'Professor' %}
+        <li><a href="{% url "adicionar_tarefas" %}"><i class="fas fa-plus"></i> Adicionar Tarefas</a></li>
+        {% endif %}
+        <li><a href="{% url 'sair' %}"><i class="fa fa-sign-out-alt"></i> Sair</a></li>
     </ul>
 </div>
 
