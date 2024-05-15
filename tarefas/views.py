@@ -124,4 +124,24 @@ def adicao_usuario(request, equipe_id):
     return render(request, 'tarefas/pages/adicionar_usuario.html',{'equipe_id': equipe_id})
 
 def adicionar_tarefas(request):
-    pass
+    if 'usuario' not in request.session:
+        return redirect('login')
+    
+    usuario_id = request.session['usuario']
+    usuario = Usuario.objects.get(pk=usuario_id)
+    equipe = usuario.equipes.all()
+    
+    if request.method == 'POST':
+        titulo = request.POST.get('titulo')
+        descricao = request.POST.get('descricao')
+        data_limite = request.POST.get('data_limite')
+        tarefa_para = request.POST.getlist('tarefa_para')
+
+        if not (titulo and descricao and tarefa_para):
+            return redirect('adicionar_tarefas')
+        else:
+            tarefa = Tarefas.objects.create(titulo=titulo, descricao=descricao, data_limite=data_limite, autor=usuario)
+            tarefa.tarefa_para.set(tarefa_para)
+            tarefa.save()
+            return redirect('home')
+    return render(request, 'tarefas/pages/adicionar_tarefa.html', {'equipes': equipe})

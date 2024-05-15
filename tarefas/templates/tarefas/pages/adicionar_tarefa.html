@@ -1,0 +1,30 @@
+{% include "tarefas/partials/head.html" %}
+<div class="container">
+    <div class="adicionar_tarefas">
+        <h2></h2>
+
+        <form action="{% url "adicionar_tarefas" %}" method="POST">
+            {% csrf_token %}
+
+            <label for="titulo">Título</label>
+            <input type="text" id="titulo" name="titulo" required>
+
+            <label for="descricao">Descrição</label>
+            <input type="text" id="descricao" name="descricao" required>
+
+            <label for="data_limite">Data Limite</label>
+            <input type="datetime-local" id="data_limite" name="data_limite" required>
+
+            <label for="tarefa_para">Enviar para Equipe</label>
+            <select id="tarefa_para" name="tarefa_para" required>
+                {% for equipe in equipes %}
+                    <option value="{{ equipe.id }}">{{ equipe.nome_equipe }}</option>
+                {% endfor %}
+            </select>
+
+            <div class="bnt-add">
+                <button type="submit">Adicionar Tarefa</button>
+            </div>
+        </form>
+    </div>
+</div>
