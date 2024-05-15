@@ -34,7 +34,7 @@ def concluir_tarefa(request, id):
 
     tarefa = get_object_or_404(Tarefas, pk=id)
 
-    if usuario in tarefa.tarefa_para.membros.all():
+    if usuario in tarefa.tarefa_para.first().membros.all():
         if not tarefa.concluida.filter(pk=usuario_id).exists():
             tarefa.concluida.add(usuario)
     return redirect(reverse('home'))
