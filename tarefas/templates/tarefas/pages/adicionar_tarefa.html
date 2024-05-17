@@ -1,7 +1,6 @@
 {% include "tarefas/partials/head.html" %}
-<div class="container">
+{% include "tarefas/partials/menu.html" %}
     <div class="adicionar_tarefas">
-        <h2></h2>
 
         <form action="{% url "adicionar_tarefas" %}" method="POST">
             {% csrf_token %}
@@ -23,8 +22,7 @@
             </select>
 
             <div class="bnt-add">
-                <button type="submit">Adicionar Tarefa</button>
+                <button type="submit"> Adicionar Tarefa</button>
             </div>
         </form>
     </div>
-</div>

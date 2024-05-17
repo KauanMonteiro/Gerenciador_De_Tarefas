@@ -434,6 +434,12 @@ h1, h2, h3, h4, h5, h6 {
   overflow: hidden;
   margin-bottom: 2rem;
   padding: 2rem;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 100%; 
+  width: 100rem; 
 }
 
 .adicionar_tarefas h2 {
@@ -457,6 +463,7 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 1rem;
   border: 1px solid #ccc;
   border-radius: 0.3rem;
+  width: 100%; /* Adiciona uma largura de 100% para que o campo ocupe todo o espaço disponível */
 }
 
 .adicionar_tarefas button[type="submit"] {
@@ -464,11 +471,23 @@ h1, h2, h3, h4, h5, h6 {
   color: #fff;
   border: none;
   border-radius: 0.3rem;
-  padding: 0.5rem;
+  padding: 1rem 2rem;
   cursor: pointer;
   transition: background-color 0.3s;
+  margin: auto;
+  display: block;
+  margin-top: 2rem;
+  width: 100%; /* Adiciona uma largura de 100% para que o botão ocupe todo o espaço disponível */
 }
 
 .adicionar_tarefas button[type="submit"]:hover {
   background-color: #242531;
+}
+
+/* Adiciona regras de mídia para ajustar o layout em tamanhos de tela menores */
+@media screen and (max-width: 768px) {
+  .adicionar_tarefas {
+    width: 90%; /* Reduz a largura para 90% em telas menores */
+    max-width: 90%; /* Reduz a largura máxima para 90% em telas menores */
+  }
 }
