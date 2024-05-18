@@ -1,28 +1,55 @@
 {% include "tarefas/partials/head.html" %}
 {% include "tarefas/partials/menu.html" %}
-    <div class="adicionar_tarefas">
+<div class="adicionar_tarefas">
+    <form action="{% url 'adicionar_tarefas' %}" method="POST">
+        {% csrf_token %}
+        
+        <label for="titulo">Título</label>
+        <input type="text" id="titulo" name="titulo" required placeholder="Digite o título da tarefa">
 
-        <form action="{% url "adicionar_tarefas" %}" method="POST">
-            {% csrf_token %}
+        <label for="descricao">Descrição</label>
+        <textarea id="descricao" name="descricao" required placeholder="Digite a descrição da tarefa"></textarea>
 
-            <label for="titulo">Título</label>
-            <input type="text" id="titulo" name="titulo" required>
+        <label for="data_limite">Data Limite</label>
+        <input type="datetime-local" id="data_limite" name="data_limite" required>
 
-            <label for="descricao">Descrição</label>
-            <input type="text" id="descricao" name="descricao" required>
+        <label for="tarefa_para">Enviar para Equipe</label>
+        <select id="tarefa_para" name="tarefa_para" required>
+            {% for equipe in equipes %}
+                <option value="{{ equipe.id }}">{{ equipe.nome_equipe }}</option>
+            {% endfor %}
+        </select>
 
-            <label for="data_limite">Data Limite</label>
-            <input type="datetime-local" id="data_limite" name="data_limite" required>
+        <h2>alternativas</h2>
+        <div class="alternativas">
+            <label for="alternativa1">(A)</label>
+            <textarea id="alternativa1" name="alternativa1" placeholder="Digite a alternativa A"></textarea>
 
-            <label for="tarefa_para">Enviar para Equipe</label>
-            <select id="tarefa_para" name="tarefa_para" required>
-                {% for equipe in equipes %}
-                    <option value="{{ equipe.id }}">{{ equipe.nome_equipe }}</option>
-                {% endfor %}
+            <label for="alternativa2">(B)</label>
+            <textarea id="alternativa2" name="alternativa2" placeholder="Digite a alternativa B"></textarea>
+
+            <label for="alternativa3">(C)</label>
+            <textarea id="alternativa3" name="alternativa3" placeholder="Digite a alternativa C"></textarea>
+
+            <label for="alternativa4">(D)</label>
+            <textarea id="alternativa4" name="alternativa4" placeholder="Digite a alternativa D"></textarea>
+
+            <label for="alternativa5">(E)</label>
+            <textarea id="alternativa5" name="alternativa5" placeholder="Digite a alternativa E"></textarea>
+
+            <label for="">selecione a alternativa correta</label>
+            <select name="" id="">
+                <option value="1">A</option>
+                <option value="2">B</option>
+                <option value="3">C</option>
+                <option value="4">D</option>
+                <option value="5">E</option>
             </select>
 
-            <div class="bnt-add">
-                <button type="submit"> Adicionar Tarefa</button>
-            </div>
-        </form>
-    </div>
+        </div>
+        
+        <div class="bnt-add">
+            <button type="submit">Adicionar Tarefa</button>
+        </div>
+    </form>
+</div>

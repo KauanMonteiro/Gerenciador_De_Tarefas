@@ -484,10 +484,28 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #242531;
 }
 
-/* Adiciona regras de mídia para ajustar o layout em tamanhos de tela menores */
+.alternativas {
+  display: grid;
+  grid-template-columns: auto 1fr; 
+  gap: 1rem; 
+}
+
+.alternativas label {
+  font-size: 1.6rem;
+  align-self: center;
+}
+
+.alternativas textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 0.3rem;
+}
+
 @media screen and (max-width: 768px) {
   .adicionar_tarefas {
-    width: 90%; /* Reduz a largura para 90% em telas menores */
-    max-width: 90%; /* Reduz a largura máxima para 90% em telas menores */
+    width: 90%; 
+    max-width: 90%;
   }
 }
