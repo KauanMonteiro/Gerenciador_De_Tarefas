@@ -8,35 +8,57 @@
             <span><i class="fas fa-user"></i> Autor: {{ tarefa.autor }}</span>
         </div>
         <div class="tarefa-meta tarefa-data-criacao">
-            <span><i class="fas fa-calendar-alt"></i> Data de Criação: {{ tarefa.data_criacao|date:"d/m/Y H:i"  }}</span>
+            <span><i class="fas fa-calendar-alt"></i> Data de Criação: {{ tarefa.data_criacao|date:"d/m/Y H:i" }}</span>
         </div>
         <div class="tarefa-meta tarefa-data-limite">
-            <span><i class="fas fa-calendar-times"></i> Data Limite: {{ tarefa.data_limite|date:"d/m/Y H:i"  }}</span>
+            <span><i class="fas fa-calendar-times"></i> Data Limite: {{ tarefa.data_limite|date:"d/m/Y H:i" }}</span>
         </div>
     </div>
 
     {% if usuario in tarefa.concluida.all %}
-    <footer class="tarefa-content"> 
+    <footer class="tarefa-content">
         <div class="tarefa_finalizada">
             <span>Finalizada</span>
         </div>
+
+        <div>
+            <span>Nota:</span>
+        </div>
     </footer>
     {% else %}
-        {% if is_detail_page %}
-        <footer class="tarefa-content">
-            <p>{{ tarefa.descricao }}</p>
-            <div class="tarefa-detalhe">
-                <a href="{% url 'concluir_tarefa' tarefa.id %}"><button><i class="fas fa-check"></i> Finalizar</button></a>
-            </div>
-        </footer>
-        {% else %}
-        <footer class="tarefa-content">
-            <div class="tarefa-detalhe">
-                <a href="{% url 'tarefa_detail' tarefa.id %}"><button><i class="fas fa-eye"></i> Ver Mais</button></a>
-            </div>
-        </footer>
-        {% endif %}
+    {% if is_detail_page %}
+
+    <footer class="tarefa-content">
+        <p>{{ tarefa.descricao }}</p>
+        
+    </footer>
+
+    <footer class='alternativa'>
+        <div class="alternativas-container">
+            <p class="alternativa-text">(A) <input type="radio" name="alternativa" value="1">{{ tarefa.alternativa1 }}
+            </p>
+            <p class="alternativa-text">(B) <input type="radio" name="alternativa" value="2">{{ tarefa.alternativa2 }}
+            </p>
+            <p class="alternativa-text">(C) <input type="radio" name="alternativa" value="3">{{ tarefa.alternativa3 }}
+            </p>
+            <p class="alternativa-text">(D) <input type="radio" name="alternativa" value="4">{{ tarefa.alternativa4 }}
+            </p>
+            <p class="alternativa-text">(E) <input type="radio" name="alternativa" value="5">{{ tarefa.alternativa5 }}
+            </p>
+        </div>
+    </footer>
+    
+    <div class="tarefa-detalhe">
+        <a href="{% url 'concluir_tarefa' tarefa.id %}"><button><i class="fas fa-check"></i> Finalizar</button></a>
+    </div>
+    {% else %}
+    <footer class="tarefa-content">
+        <div class="tarefa-detalhe">
+            <a href="{% url 'tarefa_detail' tarefa.id %}"><button><i class="fas fa-eye"></i> Ver Mais</button></a>
+        </div>
+    </footer>
     {% endif %}
-    
-    
+    {% endif %}
+
+
 </div>

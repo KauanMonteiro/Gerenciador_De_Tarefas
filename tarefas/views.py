@@ -13,7 +13,7 @@ def home(request):
     
     if usuario.equipes.exists():
         equipe_usuario = usuario.equipes.first()
-        tarefas_incompletas = Tarefas.objects.exclude(concluida=usuario, tarefa_para=equipe_usuario)
+        tarefas_incompletas = Tarefas.objects.exclude(concluida=usuario)
         return render(request, 'tarefas/pages/home.html', {'tarefas': tarefas_incompletas, 'usuario': usuario})
     else:
         return render(request, 'tarefas/pages/home.html')
@@ -53,6 +53,7 @@ def area_usuario(request):
         tarefas_nao_concluidas = tarefas_equipes_usuario.exclude(concluida= usuario).count()
         total_tarefas = tarefas_equipes_usuario.count()
         tarefas_concluidas = tarefas_equipes_usuario.filter(concluida=usuario ).count()
+        
         return render(request, 'tarefas/pages/area_usuario.html', {
             'usuario': usuario,
             'tarefas': tarefas_equipes_usuario,

@@ -189,6 +189,29 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #404040;
 }
 
+
+.alternativa {
+  padding: 20px; 
+  border-radius: 10px;
+}
+
+.alternativas-container {
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.alternativas-container p {
+  margin-bottom: 10px; 
+  font-size: 16px;
+}
+
+.alternativas-container input[type="radio"] {
+  cursor: pointer;
+  margin-right: 10px; 
+}
+
+
+
 .cadastro_equipe {
   width: 90%;
   padding: 2rem;
