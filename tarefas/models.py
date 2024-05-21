@@ -11,17 +11,17 @@ class Equipe(models.Model):
 class Tarefas(models.Model):
     titulo = models.CharField(max_length=100)
     autor = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='tarefas_autor')
-    descricao = models.TextField(null=True)
+    descricao = models.TextField(null=True, blank=True)
     data_criacao = models.DateTimeField(auto_now_add=True)
     data_limite = models.DateTimeField(null=True)
     concluida = models.ManyToManyField(Usuario, blank=True)
     tarefa_para = models.ManyToManyField(Equipe)
-    alternativa1 = models.TextField(null=True)
-    alternativa2 = models.TextField(null=True)
-    alternativa3 = models.TextField(null=True)
-    alternativa4 = models.TextField(null=True)
-    alternativa5 = models.TextField(null=True)
-    alternativa_correta = models.IntegerField(choices=[(1, 'A'), (2, 'B'), (3, 'C'), (4, 'D'), (5, 'E')], null=True)
+    alternativa1 = models.TextField(null=True,blank=True)
+    alternativa2 = models.TextField(null=True,blank=True)
+    alternativa3 = models.TextField(null=True,blank=True)
+    alternativa4 = models.TextField(null=True,blank=True)
+    alternativa5 = models.TextField(null=True,blank=True)
+    alternativa_correta = models.IntegerField(choices=[(1, 'A'), (2, 'B'), (3, 'C'), (4, 'D'), (5, 'E')], null=True,blank=True)
     
     def __str__(self):
         return self.titulo
