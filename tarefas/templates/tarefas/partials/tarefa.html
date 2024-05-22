@@ -20,10 +20,6 @@
         <div class="tarefa_finalizada">
             <span>Finalizada</span>
         </div>
-
-        <div>
-            <span>Nota:</span>
-        </div>
     </footer>
     {% else %}
     {% if is_detail_page %}
@@ -33,7 +29,7 @@
         
     </footer>
 
-    <footer class='alternativa'>
+    <form method="POST" action="{% url 'concluir_tarefa' tarefa.id %}">
         <div class="alternativas-container">
             <p class="alternativa-text">(A) <input type="radio" name="alternativa" value="1">{{ tarefa.alternativa1 }}
             </p>
@@ -46,7 +42,7 @@
             <p class="alternativa-text">(E) <input type="radio" name="alternativa" value="5">{{ tarefa.alternativa5 }}
             </p>
         </div>
-    </footer>
+    </form>
     
     <div class="tarefa-detalhe">
         <a href="{% url 'concluir_tarefa' tarefa.id %}"><button><i class="fas fa-check"></i> Finalizar</button></a>

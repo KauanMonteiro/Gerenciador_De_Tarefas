@@ -34,6 +34,9 @@ def concluir_tarefa(request, id):
 
     tarefa = get_object_or_404(Tarefas, pk=id)
 
+    
+  
+
     if usuario in tarefa.tarefa_para.first().membros.all():
         if not tarefa.concluida.filter(pk=usuario_id).exists():
             tarefa.concluida.add(usuario)
@@ -137,12 +140,30 @@ def adicionar_tarefas(request):
         descricao = request.POST.get('descricao')
         data_limite = request.POST.get('data_limite')
         tarefa_para = request.POST.getlist('tarefa_para')
+        alternativa1 = request.POST.get('alternativa1')
+        alternativa2 = request.POST.get('alternativa2')
+        alternativa3 = request.POST.get('alternativa3')
+        alternativa4 = request.POST.get('alternativa4')
+        alternativa5 = request.POST.get('alternativa5')
+        alternativa_correta = request.POST.get('alternativa_correta')
 
         if not (titulo and descricao and tarefa_para):
             return redirect('adicionar_tarefas')
         else:
-            tarefa = Tarefas.objects.create(titulo=titulo, descricao=descricao, data_limite=data_limite, autor=usuario)
+            tarefa = Tarefas.objects.create(titulo=titulo,
+                    descricao=descricao,
+                    data_limite=data_limite,
+                    autor=usuario,alternativa1=alternativa1,
+                    alternativa2 =alternativa2,
+                    alternativa3 = alternativa3,
+                    alternativa4 = alternativa4,
+                    alternativa5 = alternativa5 ,
+            alternativa_correta=alternativa_correta)
+            
             tarefa.tarefa_para.set(tarefa_para)
             tarefa.save()
             return redirect('home')
     return render(request, 'tarefas/pages/adicionar_tarefa.html', {'equipes': equipe})
+
+
+    
