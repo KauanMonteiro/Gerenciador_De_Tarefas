@@ -21,7 +21,8 @@ class Tarefas(models.Model):
     alternativa3 = models.TextField(null=True,blank=True)
     alternativa4 = models.TextField(null=True,blank=True)
     alternativa5 = models.TextField(null=True,blank=True)
-    alternativa_correta = models.IntegerField(choices=[(1, 'A'), (2, 'B'), (3, 'C'), (4, 'D'), (5, 'E')], null=True)
+    alternativa_correta = models.IntegerField(choices=[(1, 'A'), (2, 'B'), (3, 'C'), (4, 'D'), (5, 'E')], null=True,default=1)
+    resposta_usuario = models.IntegerField(null=True, blank=True)
     
     def __str__(self):
         return self.titulo

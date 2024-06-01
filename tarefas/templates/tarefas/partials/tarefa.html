@@ -20,6 +20,15 @@
         <div class="tarefa_finalizada">
             <span>Finalizada</span>
         </div>
+
+        <div>
+            {% if tarefa.alternativa_correta == tarefa.resposta_usuario %}
+                <span>Acertou!</span>
+            {% else %}
+                <span>Errou!</span>
+            {% endif %}
+        </div>
+
     </footer>
     {% else %}
     {% if is_detail_page %}
@@ -30,23 +39,18 @@
     </footer>
 
     <form method="POST" action="{% url 'concluir_tarefa' tarefa.id %}">
+        {% csrf_token %}
         <div class="alternativas-container">
-            <p class="alternativa-text">(A) <input type="radio" name="alternativa" value="1">{{ tarefa.alternativa1 }}
-            </p>
-            <p class="alternativa-text">(B) <input type="radio" name="alternativa" value="2">{{ tarefa.alternativa2 }}
-            </p>
-            <p class="alternativa-text">(C) <input type="radio" name="alternativa" value="3">{{ tarefa.alternativa3 }}
-            </p>
-            <p class="alternativa-text">(D) <input type="radio" name="alternativa" value="4">{{ tarefa.alternativa4 }}
-            </p>
-            <p class="alternativa-text">(E) <input type="radio" name="alternativa" value="5">{{ tarefa.alternativa5 }}
-            </p>
+            <p class="alternativa-text">(A) <input type="radio" name="alternativa" value="1">{{ tarefa.alternativa1 }}</p>
+            <p class="alternativa-text">(B) <input type="radio" name="alternativa" value="2">{{ tarefa.alternativa2 }}</p>
+            <p class="alternativa-text">(C) <input type="radio" name="alternativa" value="3">{{ tarefa.alternativa3 }}</p>
+            <p class="alternativa-text">(D) <input type="radio" name="alternativa" value="4">{{ tarefa.alternativa4 }}</p>
+            <p class="alternativa-text">(E) <input type="radio" name="alternativa" value="5">{{ tarefa.alternativa5 }}</p>
+        </div>
+        <div class="tarefa-detalhe">
+            <button type="submit"><i class="fas fa-check"></i> Finalizar</button>
         </div>
     </form>
-    
-    <div class="tarefa-detalhe">
-        <a href="{% url 'concluir_tarefa' tarefa.id %}"><button><i class="fas fa-check"></i> Finalizar</button></a>
-    </div>
     {% else %}
     <footer class="tarefa-content">
         <div class="tarefa-detalhe">
@@ -55,6 +59,4 @@
     </footer>
     {% endif %}
     {% endif %}
-
-
 </div>

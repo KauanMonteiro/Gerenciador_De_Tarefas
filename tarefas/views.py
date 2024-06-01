@@ -34,12 +34,15 @@ def concluir_tarefa(request, id):
 
     tarefa = get_object_or_404(Tarefas, pk=id)
 
-    
-  
-
     if usuario in tarefa.tarefa_para.first().membros.all():
         if not tarefa.concluida.filter(pk=usuario_id).exists():
             tarefa.concluida.add(usuario)
+
+    if request.method == 'POST':
+        resposta_usuario = request.POST.get('alternativa')
+        tarefa.resposta_usuario = resposta_usuario
+        tarefa.save()
+        
     return redirect(reverse('home'))
 
 def area_usuario(request):
