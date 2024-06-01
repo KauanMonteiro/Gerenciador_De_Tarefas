@@ -159,6 +159,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 .tarefa_finalizada{
   background-color: #088004;
+  display: block;
+  margin: 0 auto;
   color: white;
   padding: 10px 0;
   border: none;
@@ -486,7 +488,7 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 1rem;
   border: 1px solid #ccc;
   border-radius: 0.3rem;
-  width: 100%; /* Adiciona uma largura de 100% para que o campo ocupe todo o espaço disponível */
+  width: 100%; 
 }
 
 .adicionar_tarefas button[type="submit"] {
@@ -500,7 +502,7 @@ h1, h2, h3, h4, h5, h6 {
   margin: auto;
   display: block;
   margin-top: 2rem;
-  width: 100%; /* Adiciona uma largura de 100% para que o botão ocupe todo o espaço disponível */
+  width: 100%; 
 }
 
 .adicionar_tarefas button[type="submit"]:hover {
@@ -525,7 +527,33 @@ h1, h2, h3, h4, h5, h6 {
   border: 1px solid #ccc;
   border-radius: 0.3rem;
 }
+  .resposta_correta{
+    background-color: #088004;
+    display: block;
+    margin: 0 auto;
+    overflow: hidden;
+    color: white;
+    padding: 10px 0;
+    border: none;
+    border-radius: 0.5rem;
+    width: 100%;
+    margin-top: 0.6rem;
+    max-width: 20rem;
+  }
 
+  .resposta_errada{
+    background-color: #b40000;
+    display: block;
+    margin: 0 auto;
+    overflow: hidden;
+    color: white;
+    padding: 10px 0;
+    border: none;
+    border-radius: 0.5rem;
+    width: 100%;
+    margin-top: 0.6rem;
+    max-width: 20rem;
+  }
 @media screen and (max-width: 768px) {
   .adicionar_tarefas {
     width: 90%; 

@@ -17,15 +17,15 @@
 
     {% if usuario in tarefa.concluida.all %}
     <footer class="tarefa-content">
-        <div class="tarefa_finalizada">
+        {% comment %} <div class="tarefa_finalizada">
             <span>Finalizada</span>
-        </div>
+        </div> {% endcomment %}
 
         <div>
             {% if tarefa.alternativa_correta == tarefa.resposta_usuario %}
-                <span>Acertou!</span>
+            <div class="resposta_correta"><span>Acertou!</span></div>
             {% else %}
-                <span>Errou!</span>
+                <div class="resposta_errada"><span>Errou!</span></div>
             {% endif %}
         </div>
 
