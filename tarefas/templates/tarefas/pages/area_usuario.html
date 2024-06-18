@@ -3,13 +3,22 @@
 {% block content %}
 <div>
     {% include "tarefas/partials/menu.html" %}
-    <div>
+    <div style="        text-align: center;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #ffffff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        width: 80%;
+        max-width: 600px;">
         <h1>{{usuario.nome}}</h1>
         <h2>   ID:  {{usuario.id}}</h2>
     </div>
-
+<div style="text-align:center;">    
     {% for equipe in equipes %}
         {% include "tarefas/partials/equipe.html" %}
     {% endfor %}
+</div>
+
 </div>
 {% endblock content %}
