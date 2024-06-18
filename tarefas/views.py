@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404 , redirect
 from django.urls import reverse 
 from .models import Tarefas, Equipe
 from usuario.models import Usuario
+import matplotlib.pyplot as plt
 
 
 def home(request):
@@ -168,5 +169,31 @@ def adicionar_tarefas(request):
             return redirect('home')
     return render(request, 'tarefas/pages/adicionar_tarefa.html', {'equipes': equipe})
 
+def estatisticas(request, equipe_id):
+    equipe = get_object_or_404(Equipe, pk=equipe_id)
+    membros_equipe = equipe.membros.all()
+    estatisticas_usuarios = []
 
-    
+    for usuario in membros_equipe:
+        tarefas_usuario = Tarefas.objects.filter(tarefa_para=equipe)
+        tarefas_concluidas = tarefas_usuario.filter(concluida=usuario)
+        tarefas_nao_concluidas = tarefas_usuario.exclude(concluida=usuario).count()
+
+        correta = 0
+        errada = 0
+        for tarefa in tarefas_concluidas:
+            if tarefa.resposta_usuario != tarefa.alternativa_correta:
+                correta += 1
+            else:
+                errada += 1
+
+
+        estatisticas_usuarios.append({
+            'usuario': usuario,
+            'tarefas_concluidas': tarefas_concluidas.count(),
+            'tarefas_nao_concluidas': tarefas_nao_concluidas,
+            'corretas': correta,
+            'erradas': errada
+        })
+
+    return render(request, 'tarefas/pages/estatisticas.html', {'equipe': equipe, 'estatisticas_usuarios': estatisticas_usuarios})

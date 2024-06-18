@@ -276,7 +276,7 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 2rem;
   margin-left: 20px;
   text-align: center;
-  height: 270px;
+  height: 310px;
   width: 450px;
   display: inline-block; 
   vertical-align: top;
@@ -284,6 +284,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .equipe-list-item {
   padding: 1.5rem;
+  
 }
 
 .equipe-nome-container {
@@ -324,6 +325,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
   max-width: 20rem;
   transition: background-color 0.3s;
+  margin-top: 5px;
 }
 
 .equipe-detalhe button:hover {
@@ -559,4 +561,45 @@ h1, h2, h3, h4, h5, h6 {
     width: 90%; 
     max-width: 90%;
   }
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+  margin-top: 25px;
+}
+
+th, td {
+  padding: 1rem;
+  text-align: left;
+}
+
+thead {
+  background-color: #13141f;
+  color: white;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tbody tr:hover {
+  background-color: #ddd;
+}
+
+
+th:nth-child(1),
+td:nth-child(1) {
+  width: 30%; 
+}
+
+th:nth-child(2),
+td:nth-child(2),
+th:nth-child(3),
+td:nth-child(3),
+th:nth-child(4),
+td:nth-child(4),
+th:nth-child(5),
+td:nth-child(5) {
+  width: 15%; 
 }

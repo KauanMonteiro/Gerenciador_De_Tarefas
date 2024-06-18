@@ -17,10 +17,6 @@
 
     {% if usuario in tarefa.concluida.all %}
     <footer class="tarefa-content">
-        {% comment %} <div class="tarefa_finalizada">
-            <span>Finalizada</span>
-        </div> {% endcomment %}
-
         <div>
             {% if tarefa.alternativa_correta == tarefa.resposta_usuario %}
             <div class="resposta_correta"><span>Acertou!</span></div>

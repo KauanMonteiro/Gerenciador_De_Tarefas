@@ -28,6 +28,11 @@
           <button><i class='fas fa-plus'></i> Adicionar usuário</button>
       </a>      
       </div>
+      <div>
+        <a href="{% url "estatisticas" equipe_id=equipe.id %}">
+          <button><i class="fas fa-chart-line"></i> Estatísticas</button>
+        </a>
+      </div>
       {% endif %}
 
     </div>

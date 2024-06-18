@@ -1,0 +1,31 @@
+{% extends "global/base.html" %}
+
+{% block content %}
+<div>
+    <h1 class='nome_equipe_estatisticas' style="text-align: center;">{{ equipe.nome_equipe }}</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Usuário</th>
+                <th>Tarefas Concluídas</th>
+                <th>Tarefas Não Concluídas</th>
+                <th>Tarefas Erradas</th>
+                <th>Tarefas Certas</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for stats in estatisticas_usuarios %}
+            <tr>
+                <td>{{ stats.usuario.nome }}</td>
+                <td>{{ stats.tarefas_concluidas }}</td>
+                <td>{{ stats.tarefas_nao_concluidas }}</td>
+                <td>{{ stats.corretas }}</td>
+                <td>{{ stats.erradas }}</td>
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
