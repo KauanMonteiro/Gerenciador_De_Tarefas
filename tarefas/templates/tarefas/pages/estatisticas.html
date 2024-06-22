@@ -4,7 +4,17 @@
 <div>
     <h1 class='nome_equipe_estatisticas' style="text-align: center;">{{ equipe.nome_equipe }}</h1>
 
-    <table>
+    <button class="botao_popup" onclick="openPopup()">graficos de desenpenho da sala </button>
+    
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <div id="grafico-container" class="grafico-container">
+                <img class="grafico-imagem" src="data:image/png;base64,{{ graphic }}" alt="Gráfico de Estatísticas da Equipe">
+            </div>
+        </div>
+    </div>
+    <table class="table-responsive">
         <thead>
             <tr>
                 <th>Usuário</th>
@@ -22,10 +32,19 @@
                 <td>{{ stats.tarefas_nao_concluidas }}</td>
                 <td>{{ stats.corretas }}</td>
                 <td>{{ stats.erradas }}</td>
-                
+
             </tr>
             {% endfor %}
         </tbody>
     </table>
 </div>
+<script>
+    function openPopup() {
+      document.getElementById("popup").style.display = "block";
+    }
+    
+    function closePopup() {
+      document.getElementById("popup").style.display = "none";
+    }
+    </script>
 {% endblock %}
