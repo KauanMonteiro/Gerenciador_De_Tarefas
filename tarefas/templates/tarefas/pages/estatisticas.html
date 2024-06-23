@@ -4,47 +4,70 @@
 <div>
     <h1 class='nome_equipe_estatisticas' style="text-align: center;">{{ equipe.nome_equipe }}</h1>
 
-    <button class="botao_popup" onclick="openPopup()">graficos de desenpenho da sala </button>
-    
-    <div id="popup" class="popup">
+    <button class="botao_popup" onclick="openSalaPopup()">Gráficos de Desempenho da Sala</button>
+
+    <div id="sala-popup" class="popup">
         <div class="popup-content">
-            <span class="close" onclick="closePopup()">&times;</span>
-            <div id="grafico-container" class="grafico-container">
-                <img class="grafico-imagem" src="data:image/png;base64,{{ graphic }}" alt="Gráfico de Estatísticas da Equipe">
+            <span class="close" onclick="closeSalaPopup()">&times;</span>
+            <div id="sala-grafico-container" class="grafico-container">
+                <img class="grafico-imagem" src="data:image/png;base64,{{ grafico }}"
+                    alt="Gráfico de Estatísticas da Equipe">
             </div>
         </div>
     </div>
+
     <table class="table-responsive">
         <thead>
             <tr>
                 <th>Usuário</th>
                 <th>Tarefas Concluídas</th>
                 <th>Tarefas Não Concluídas</th>
-                <th>Tarefas Erradas</th>
                 <th>Tarefas Certas</th>
+                <th>Tarefas Erradas</th>
             </tr>
         </thead>
         <tbody>
             {% for stats in estatisticas_usuarios %}
             <tr>
-                <td>{{ stats.usuario.nome }}</td>
+                <td><a onclick="openUserPopup('{{ stats.grafico_usuario }}')">{{ stats.usuario.nome }}</a></td>
                 <td>{{ stats.tarefas_concluidas }}</td>
                 <td>{{ stats.tarefas_nao_concluidas }}</td>
                 <td>{{ stats.corretas }}</td>
                 <td>{{ stats.erradas }}</td>
-
             </tr>
             {% endfor %}
         </tbody>
     </table>
+
+    <div id="user-popup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closeUserPopup()">&times;</span>
+            <div id="user-grafico-container" class="grafico-container">
+            </div>
+        </div>
+    </div>
 </div>
+
 <script>
-    function openPopup() {
-      document.getElementById("popup").style.display = "block";
+    function openSalaPopup() {
+        document.getElementById("sala-popup").style.display = "block";
     }
-    
-    function closePopup() {
-      document.getElementById("popup").style.display = "none";
+
+    function closeSalaPopup() {
+        document.getElementById("sala-popup").style.display = "none";
     }
-    </script>
+
+    function openUserPopup(graficoUsuario) {
+        var popup = document.getElementById("user-popup");
+        var graficoContainer = document.getElementById("user-grafico-container");
+
+        graficoContainer.innerHTML = '<img class="grafico-imagem" src="data:image/png;base64,' + graficoUsuario + '" alt="Gráfico de Estatísticas do Usuário">';
+
+        popup.style.display = "block";
+    }
+
+    function closeUserPopup() {
+        document.getElementById("user-popup").style.display = "none";
+    }
+</script>
 {% endblock %}

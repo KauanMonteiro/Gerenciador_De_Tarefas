@@ -169,6 +169,7 @@ def adicionar_tarefas(request):
             tarefa.save()
             return redirect('home')
     return render(request, 'tarefas/pages/adicionar_tarefa.html', {'equipes': equipe})
+
 def estatisticas(request, equipe_id):
     equipe = get_object_or_404(Equipe, pk=equipe_id)
     membros_equipe = equipe.membros.all()
@@ -209,18 +210,33 @@ def estatisticas(request, equipe_id):
         image_png = buffer.getvalue()
         buffer.close()
 
-        graphic = base64.b64encode(image_png).decode('utf-8')
+        grafico = base64.b64encode(image_png).decode('utf-8')
+
+        labels = ['Concluídas', 'Não Concluídas']
+        sizes = [tarefas_concluidas.count(), tarefas_nao_concluidas]
+
+        plt.figure(figsize=(7.5, 7))
+        plt.pie(sizes, labels=labels, autopct='%1.1f%%', colors=['green','red'], startangle=140)
+        plt.axis('equal')
+
+        buffer = BytesIO()
+        plt.savefig(buffer, format='jpg')
+        buffer.seek(0)
+        image_png = buffer.getvalue()
+        buffer.close()
+
+        grafico_usuario = base64.b64encode(image_png).decode('utf-8')
 
         estatisticas_usuarios.append({
-            
             'usuario': usuario,
             'tarefas_concluidas': tarefas_concluidas.count(),
             'tarefas_nao_concluidas': tarefas_nao_concluidas,
             'corretas': corretas,
             'erradas': erradas,
-            
+            'grafico_usuario': grafico_usuario,  
         })
+
 
     return render(request, 'tarefas/pages/estatisticas.html', {'equipe': equipe, 'estatisticas_usuarios': estatisticas_usuarios,'equipe': equipe,
         'estatisticas_equipe': estatisticas_equipe,
-        'graphic': graphic })
+        'grafico': grafico, })
