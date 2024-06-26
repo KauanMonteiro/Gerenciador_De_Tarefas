@@ -53,22 +53,29 @@ def area_usuario(request):
     
     usuario_id = request.session['usuario']
     usuario = Usuario.objects.get(pk=usuario_id)
-    
+    estatisticas_usuario = []
     if usuario.equipes.exists():
         equipes_usuario = usuario.equipes.all()
-        tarefas_equipes_usuario = Tarefas.objects.filter(tarefa_para__in=equipes_usuario)
+      
         
-        tarefas_nao_concluidas = tarefas_equipes_usuario.exclude(concluida= usuario).count()
-        total_tarefas = tarefas_equipes_usuario.count()
-        tarefas_concluidas = tarefas_equipes_usuario.filter(concluida=usuario ).count()
-        
+        for equipe in equipes_usuario:
+            tarefas_equipe = Tarefas.objects.filter(tarefa_para=equipe)
+            
+            tarefas_nao_concluidas = tarefas_equipe.exclude(concluida=usuario).count()
+            tarefas_concluidas = tarefas_equipe.filter(concluida=usuario).count()
+            total_tarefas = tarefas_equipe.count()
+            
+            estatisticas_usuario.append({
+                'equipe': equipe,
+                'total_tarefas': total_tarefas,
+                'tarefas_concluidas': tarefas_concluidas,
+                'tarefas_nao_concluidas': tarefas_nao_concluidas,
+                })
+            
         return render(request, 'tarefas/pages/area_usuario.html', {
             'usuario': usuario,
-            'tarefas': tarefas_equipes_usuario,
             'equipes': equipes_usuario,
-            'tarefas_nao_concluidas': tarefas_nao_concluidas,
-            'total_tarefas': total_tarefas,
-            'tarefas_concluidas': tarefas_concluidas,
+            'estatisticas_usuario': estatisticas_usuario,
         })
     else:
         return render(request, 'tarefas/pages/home.html')

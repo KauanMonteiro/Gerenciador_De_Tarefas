@@ -1,40 +1,39 @@
+{% for estatistica in estatisticas_usuario %}
 <div class='equipe equipe-list-item'>
   <div class='equipe-nome-container'>
-    <h2 class='equipe-nome'>{{ equipe.nome_equipe }}</h2>
+    <h2 class='equipe-nome'>{{ estatistica.equipe.nome_equipe }}</h2>
   </div>
 
   <div class="equipe-content">
     <div class="equipe-meta-container">
       <div class="tarefas-nao-concluidas">
-        <span>Tarefas não concluídas: {{ tarefas_nao_concluidas }}</span>
+        <span>Tarefas não concluídas: {{ estatistica.tarefas_nao_concluidas }}</span>
       </div>
       <div class="tarefas-total">
-        <span>Total de tarefas: {{ total_tarefas }}</span>
+        <span>Total de tarefas: {{ estatistica.total_tarefas }}</span>
       </div>
       <div class='tarefas-concluidas'>
-        <span>Tarefas concluídas: {{ tarefas_concluidas }}</span>
+        <span>Tarefas concluídas: {{ estatistica.tarefas_concluidas }}</span>
       </div>
-
-
     </div>
     <div class="equipe-detalhe">
-      <a href="{% url 'equipe_detalhe' equipe.id %}">
+      <a href="{% url 'equipe_detalhe' estatistica.equipe.id %}">
         <button><i class="fas fa-eye"></i> Ver Mais</button>
       </a>
 
       {% if usuario.cargo == 'Professor' %}
       <div class="bnt-add-usuario">
-        <a href="{% url 'adicao_usuario' equipe_id=equipe.id %}">
+        <a href="{% url 'adicao_usuario' equipe_id=estatistica.equipe.id %}">
           <button><i class='fas fa-plus'></i> Adicionar usuário</button>
-      </a>      
+        </a>      
       </div>
       <div>
-        <a href="{% url "estatisticas" equipe_id=equipe.id %}">
+        <a href="{% url 'estatisticas' equipe_id=estatistica.equipe.id %}">
           <button><i class="fas fa-chart-line"></i> Estatísticas</button>
         </a>
       </div>
       {% endif %}
-
     </div>
   </div>
 </div>
+{% endfor %}
