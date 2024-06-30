@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404 , redirect
 from django.urls import reverse 
 from .models import Tarefas, Equipe
@@ -5,6 +6,8 @@ from usuario.models import Usuario
 import matplotlib.pyplot as plt
 from io import BytesIO
 import base64
+from openpyxl import Workbook
+from openpyxl.styles import PatternFill
 
 def home(request):
     if 'usuario' not in request.session:
@@ -242,8 +245,54 @@ def estatisticas(request, equipe_id):
             'erradas': erradas,
             'grafico_usuario': grafico_usuario,  
         })
-
+    
 
     return render(request, 'tarefas/pages/estatisticas.html', {'equipe': equipe, 'estatisticas_usuarios': estatisticas_usuarios,'equipe': equipe,
         'estatisticas_equipe': estatisticas_equipe,
-        'grafico': grafico, })
+        'grafico': grafico,})
+
+
+def download_excel(request, equipe_id):
+    equipe = get_object_or_404(Equipe, pk=equipe_id)
+    membros_equipe = equipe.membros.all()
+    estatisticas_usuarios = []
+    wb = Workbook()
+    ws = wb.active
+    ws.title = 'Estatisticas Equipe'
+    
+    ws['A1'] = 'Usuário'
+    ws['B1'] = 'Tarefas Concluídas'
+    ws['C1'] = 'Tarefas Não Concluídas'
+    ws['D1'] = 'Corretas'
+    ws['E1'] = 'Erradas'
+
+    row_num = 2
+    for usuario in membros_equipe:
+        tarefas_usuario = Tarefas.objects.filter(tarefa_para=equipe)
+        tarefas_concluidas = tarefas_usuario.filter(concluida=usuario)
+        tarefas_nao_concluidas = tarefas_usuario.exclude(concluida=usuario)
+
+
+        corretas = 0
+        erradas = 0
+        for tarefa in tarefas_concluidas:
+            if tarefa.resposta_usuario != tarefa.alternativa_correta:
+                erradas += 1
+            else:
+                corretas += 1
+        ws[f'A{row_num}'] = usuario.nome 
+        ws[f'B{row_num}'] = tarefas_concluidas.count()
+        ws[f'C{row_num}'] = tarefas_nao_concluidas.count()
+        ws[f'D{row_num}'] = corretas
+        ws[f'E{row_num}'] = erradas
+        
+        row_num += 1
+
+    arquivo_excel = BytesIO()
+    wb.save(arquivo_excel)
+    arquivo_excel.seek(0)
+
+    response = HttpResponse(arquivo_excel, content_type='application/vnd.openpyxl.sheet')
+    response['Content-Disposition'] = 'attachment; filename=EstatisticasEquipe.xlsx'
+
+    return response

@@ -700,3 +700,20 @@ td:nth-child(5) {
     overflow-x: auto; 
   }
 }
+.botao-download-excel{
+  background-color: #202020;
+  color: white;
+  padding: 10px 0;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  width: 100%;
+  max-width: 20rem;
+  transition: background-color 0.3s;
+  display: block; 
+  margin: 0 auto; 
+  text-align: center; 
+  align-items: center; 
+  margin-top: 1rem;
+  
+}

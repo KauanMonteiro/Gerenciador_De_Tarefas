@@ -6,6 +6,9 @@
 
     <button class="botao_popup" onclick="openSalaPopup()">Gráficos de Desempenho da Sala</button>
 
+    <a href="{% url 'download_excel' equipe.id %}" class="botao-download-excel"><i class="fa fa-download"></i> Planilha Excel</a>
+
+
     <div id="sala-popup" class="popup">
         <div class="popup-content">
             <span class="close" onclick="closeSalaPopup()">&times;</span>
