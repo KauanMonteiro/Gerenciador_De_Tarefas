@@ -11,6 +11,7 @@ class Equipe(models.Model):
 class Tarefas(models.Model):
     titulo = models.CharField(max_length=100)
     autor = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='tarefas_autor')
+    imagem = models.ImageField(upload_to='imagem/tarefa/%Y/%m/%d/', null=True, blank=True)
     descricao = models.TextField(null=True, blank=True)
     data_criacao = models.DateTimeField(auto_now_add=True)
     data_limite = models.DateTimeField(null=True)

@@ -30,6 +30,10 @@
     {% if is_detail_page %}
 
     <footer class="tarefa-content">
+        {% if tarefa.imagem %}
+        <img src="{{ tarefa.imagem.url }}" alt="Imagem da Tarefa">
+    {% endif %}
+    
         <p>{{ tarefa.descricao }}</p>
         
     </footer>

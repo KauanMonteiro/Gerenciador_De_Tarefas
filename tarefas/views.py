@@ -119,7 +119,6 @@ def equipe_detalhe(request, id):
     
     return render(request, 'tarefas/pages/ver_mais_equipe.html', {'equipe': equipe, 'tarefas': tarefas_equipe, 'usuario': usuario})
     
-
 def adicao_usuario(request, equipe_id):
     if 'usuario' not in request.session:
         return redirect('login')
@@ -152,6 +151,7 @@ def adicionar_tarefas(request):
     
     if request.method == 'POST':
         titulo = request.POST.get('titulo')
+        imagem = request.FILES.get('imagem')
         descricao = request.POST.get('descricao')
         data_limite = request.POST.get('data_limite')
         tarefa_para = request.POST.getlist('tarefa_para')
@@ -167,6 +167,7 @@ def adicionar_tarefas(request):
         else:
             tarefa = Tarefas.objects.create(titulo=titulo,
                     descricao=descricao,
+                    imagem= imagem,
                     data_limite=data_limite,
                     autor=usuario,alternativa1=alternativa1,
                     alternativa2 =alternativa2,
@@ -182,7 +183,7 @@ def adicionar_tarefas(request):
 
 def estatisticas(request, equipe_id):
     equipe = get_object_or_404(Equipe, pk=equipe_id)
-    membros_equipe = equipe.membros.all()
+    membros_equipe = equipe.membros.exclude(cargo='Professor')
     estatisticas_usuarios = []
     estatisticas_equipe = {
         'tarefas_concluidas': 0,
@@ -251,10 +252,9 @@ def estatisticas(request, equipe_id):
         'estatisticas_equipe': estatisticas_equipe,
         'grafico': grafico,})
 
-
 def download_excel(request, equipe_id):
     equipe = get_object_or_404(Equipe, pk=equipe_id)
-    membros_equipe = equipe.membros.all()
+    membros_equipe = equipe.membros.exclude(cargo='Professor')
     estatisticas_usuarios = []
     wb = Workbook()
     ws = wb.active
