@@ -18,11 +18,10 @@ def home(request):
     
     if usuario.equipes.exists():
         equipe_usuario = usuario.equipes.first()
-        tarefas_incompletas = Tarefas.objects.exclude(concluida=usuario)
+        tarefas_incompletas = Tarefas.objects.exclude(concluida=usuario).order_by('-id')
         return render(request, 'tarefas/pages/home.html', {'tarefas': tarefas_incompletas, 'usuario': usuario})
     else:
         return render(request, 'tarefas/pages/home.html')
-
 
 def tarefa_detail(request, id):
     if 'usuario' not in request.session:
@@ -82,7 +81,6 @@ def area_usuario(request):
         })
     else:
         return render(request, 'tarefas/pages/home.html')
-
 
 def criar_equipe(request):
     if 'usuario' not in request.session:
@@ -176,7 +174,9 @@ def adicionar_tarefas(request):
                     alternativa5 = alternativa5 ,
             alternativa_correta=alternativa_correta)
             
-            tarefa.tarefa_para.set(tarefa_para)
+            for equipe_id in tarefa_para:
+                equipe_obj = Equipe.objects.get(pk=equipe_id)
+                tarefa.tarefa_para.add(equipe_obj)
             tarefa.save()
             return redirect('home')
     return render(request, 'tarefas/pages/adicionar_tarefa.html', {'equipes': equipe})
@@ -296,3 +296,4 @@ def download_excel(request, equipe_id):
     response['Content-Disposition'] = 'attachment; filename=EstatisticasEquipe.xlsx'
 
     return response
+    

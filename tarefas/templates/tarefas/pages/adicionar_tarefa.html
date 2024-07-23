@@ -17,7 +17,7 @@
         <input type="datetime-local" id="data_limite" name="data_limite" required>
 
         <label for="tarefa_para">Enviar para Equipe</label>
-        <select id="tarefa_para" name="tarefa_para" required>
+        <select id="tarefa_para" name="tarefa_para"  multiple required>
             {% for equipe in equipes %}
                 <option value="{{ equipe.id }}">{{ equipe.nome_equipe }}</option>
             {% endfor %}

@@ -1,0 +1,18 @@
+<table>
+    <thead>
+        <tr>
+            <th>Titulo</th>
+            <th>Autor</th>
+            <th>Data criação</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for tarefa in tarefas %}
+        <tr>
+            <td>{{tarefa.titulo}}</td>
+            <td>{{tarefa.autor}}</td>
+            <td>{{tarefa.data_criacao}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
