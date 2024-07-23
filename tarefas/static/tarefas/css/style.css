@@ -721,3 +721,91 @@ td:nth-child(5) {
   margin-top: 1rem;
   
 }
+.formulario {
+  text-align: center;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  width: 80%;
+  max-width: 800px; 
+  position: relative;
+}
+
+.formulario label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 1.7rem;
+  color: #333;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.formulario input,
+.formulario textarea,
+.formulario select {
+  width: calc(100% - 2rem); 
+  padding: 1rem;
+  margin-bottom: 1rem;
+  font-size: 1.6rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; 
+}
+
+.formulario button {
+  padding: 1rem 2rem;
+  font-size: 1.6rem;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 1rem; 
+}
+
+.formulario button:hover {
+  background-color: #45a049;
+}
+
+.formulario select {
+  background-color: #fff;
+  color: #444;
+}
+
+.formulario option {
+  font-size: 1.6rem;
+  text-align: center;
+  color: #444;
+}
+
+.formulario img {
+  max-width: 100%;
+  height: auto; 
+  margin-top: 10px;
+  margin-bottom: 1rem; 
+}
+.botao2 {
+  display: flex;
+  padding: 10px 20px;
+  font-size: 1.6rem; 
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  background-color: transparent;
+  color: #444; 
+  border: 2px solid transparent; 
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  margin: 0 auto;
+
+}
+
+.botao2:hover {
+  background-color: #ccc;
+  color: #000;
+  border-color: #ccc;
+}

@@ -296,4 +296,43 @@ def download_excel(request, equipe_id):
     response['Content-Disposition'] = 'attachment; filename=EstatisticasEquipe.xlsx'
 
     return response
+
+def editar_tarefa(request, id):
+    tarefa = get_object_or_404(Tarefas, pk = id)
+    if 'usuario' not in request.session:
+        return redirect('login')
     
+    usuario_id = request.session['usuario']
+    usuario = Usuario.objects.get(pk=usuario_id)
+    equipe = usuario.equipes.all()
+    
+    if request.method == 'POST':
+        titulo = request.POST.get('titulo')
+        imagem = request.FILES.get('imagem')
+        descricao = request.POST.get('descricao')
+        data_limite = request.POST.get('data_limite')
+        tarefa_para = request.POST.getlist('tarefa_para')
+        alternativa1 = request.POST.get('alternativa1')
+        alternativa2 = request.POST.get('alternativa2')
+        alternativa3 = request.POST.get('alternativa3')
+        alternativa4 = request.POST.get('alternativa4')
+        alternativa5 = request.POST.get('alternativa5')
+        alternativa_correta = request.POST.get('alternativa_correta')
+
+        tarefa.titulo = titulo
+        tarefa.imagem = imagem
+        tarefa.descricao = descricao
+        tarefa.data_limite = data_limite
+        tarefa.tarefa_para.set(Equipe.objects.filter(id__in=tarefa_para))
+        tarefa.alternativa1 = alternativa1
+        tarefa.alternativa2 = alternativa2
+        tarefa.alternativa3 = alternativa3
+        tarefa.alternativa4 = alternativa4
+        tarefa.alternativa5 = alternativa5
+        tarefa.alternativa_correta = alternativa_correta
+
+        tarefa.save()
+
+        return redirect('area_usuario')
+
+    return render(request,'tarefas/pages/editar_tarefa.html',{'equipe':equipe,'tarefa':tarefa })

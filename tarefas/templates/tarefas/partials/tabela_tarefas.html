@@ -4,6 +4,7 @@
             <th>Titulo</th>
             <th>Autor</th>
             <th>Data criação</th>
+            <th>Opções</th>
         </tr>
     </thead>
     <tbody>
@@ -12,6 +13,9 @@
             <td>{{tarefa.titulo}}</td>
             <td>{{tarefa.autor}}</td>
             <td>{{tarefa.data_criacao}}</td>
+            <td>
+                <a href="{% url "editar_tarefa" tarefa.id %}" class="botao2"><i class="fas fa-edit"></i>Editar</a>
+            </td>
         </tr>
         {% endfor %}
     </tbody>
