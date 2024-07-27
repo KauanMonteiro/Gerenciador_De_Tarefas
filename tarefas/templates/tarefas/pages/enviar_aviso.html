@@ -1,0 +1,23 @@
+{% include "tarefas/partials/head.html"%}
+
+<form method="post" class="formulario">
+    {% csrf_token %}
+    <label for="titulo">Título:</label>
+    <input type="text" id="titulo" name="titulo"><br>
+    
+    <label for="aviso">Aviso:</label><br>
+    <input id="aviso" name="aviso" rows="4" cols="50"></textarea><br>
+    
+
+
+    <div id="destinatario_select">
+        <label for="destinatario">Escolha o destinatário:</label>
+        <select id="destinatario" name="destinatario">
+            {% for equipe in equipes %}
+                <option value="{{ equipe.id }}">{{ equipe.nome_equipe }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    
+    <button type="submit">Enviar Mensagem</button>
+</form>

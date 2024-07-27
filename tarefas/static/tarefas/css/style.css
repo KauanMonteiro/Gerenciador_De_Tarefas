@@ -809,3 +809,65 @@ td:nth-child(5) {
   color: #000;
   border-color: #ccc;
 }
+.mensagem-container {
+  max-width: 600px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  background-color: #fff;
+  margin: 0 auto;
+  margin-top: 2rem;
+}
+
+.mensagem-header {
+  background-color: #202629;
+  color: #fff;
+  padding: 10px;
+  font-weight: bold;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.mensagem-content {
+  padding: 15px;
+  line-height: 1.6;
+}
+
+.mensagem-content p {
+  margin-bottom: 8px;
+}
+
+.mensagem-time {
+  color: #555;
+  font-size: 12px;
+  text-align: right;
+  padding: 5px 15px;
+  border-top: 1px solid #eee;
+}
+
+
+.enviar-aviso-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.link-redirecionamento {
+  display: inline-block;
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #e74c3c;
+  padding: 15px;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.link-redirecionamento:hover {
+  background-color: #c0392b;
+}
+
+.icon {
+  font-size: 24px;
+}

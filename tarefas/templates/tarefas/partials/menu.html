@@ -9,6 +9,7 @@
 <div class="sidebar" id="mySidebar">
     <ul>
         <li><a href="{% url 'home' %}"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="{% url "avisos" %}">Avisos</a></li>
         <li><a href="{% url 'area_usuario' %}"><i class="fas fa-user"></i> Área do Usuário</a></li>
         {% if usuario.cargo == 'Professor' %}
         <li><a href="{% url 'criar_equipe' %}">Criar Sala</a></li>
@@ -22,7 +23,6 @@
         <li><a href="{% url 'sair' %}"><i class="fa fa-sign-out-alt"></i> Sair</a></li>
     </ul>
 </div>
-
 <div class="content">
     <button class="openbtn" onclick="toggleNav()"><i class="fa fa-align-justify"></i></button>
 </div>

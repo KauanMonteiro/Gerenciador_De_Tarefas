@@ -1,10 +1,9 @@
 {% include "tarefas/partials/head.html" %}
 {% include "tarefas/partials/menu.html" %}
-<div class="editar_tarefa">
-    <form action="{% url 'editar_tarefa' %}" method="POST" enctype="multipart/form-data">
+<div class="adicionar_tarefas">
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
 
-        <!-- Campo oculto para enviar o ID da tarefa -->
         <input type="hidden" name="tarefa_id" value="{{ tarefa.id }}">
         
         <label for="titulo">Título</label>
@@ -12,7 +11,6 @@
         
         <label for="imagem">Imagem</label>
         <input type="file" name="imagem" id="imagem">
-        <!-- Campo para mostrar a imagem atual, se houver -->
         {% if tarefa.imagem %}
             <img src="{{ tarefa.imagem.url }}" alt="Imagem da tarefa">
         {% endif %}
@@ -26,7 +24,7 @@
         <label for="tarefa_para">Enviar para Equipe</label>
         <select id="tarefa_para" name="tarefa_para" multiple required>
             {% for equipe in equipes %}
-                <option value="{{ equipe.id }}" {% if equipe.id in tarefa.equipe_set.values_list 'id' flat %} selected {% endif %}>{{ equipe.nome_equipe }}</option>
+                <option value="{{ equipe.id }}"selected>{{ equipe.nome_equipe }}</option>
             {% endfor %}
         </select>
 

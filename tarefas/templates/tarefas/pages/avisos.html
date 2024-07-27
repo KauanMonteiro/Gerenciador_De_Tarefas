@@ -1,0 +1,26 @@
+{% include "tarefas/partials/head.html"%}
+
+<header class="main-header-container">
+    <div class="main-header container">
+        <h1>
+            <a class="main-logo" href="{% url 'home' %}">
+                <span class="main-logo-text">Avisos</span>
+            </a>
+        </h1>
+    </div>
+</header>
+    
+<div >
+    {% for mensagem in mensagens %}
+        {% include "tarefas/partials/mensagem.html" %}
+    {% endfor %}
+</div>
+
+{% if usuario.cargo == 'Professor' %}
+<div class="enviar-aviso-container">
+    <a href="{% url 'enviar_aviso' %}" class="link-redirecionamento">
+        <span class="icon"><i class="fas fa-envelope"></i></span>
+    </a>
+</div>
+{% endif %}
+<div >{% include "tarefas/partials/footer.html" %}</div>

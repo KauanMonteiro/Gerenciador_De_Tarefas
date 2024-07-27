@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404 , redirect
 from django.urls import reverse 
-from .models import Tarefas, Equipe
+from .models import Tarefas, Equipe, Mensagem
 from usuario.models import Usuario
 import matplotlib.pyplot as plt
 from io import BytesIO
@@ -21,8 +21,8 @@ def home(request):
         tarefas_incompletas = Tarefas.objects.exclude(concluida=usuario).order_by('-id')
         return render(request, 'tarefas/pages/home.html', {'tarefas': tarefas_incompletas, 'usuario': usuario})
     else:
-        return render(request, 'tarefas/pages/home.html')
-
+        return render(request, 'tarefas/pages/home.html',{'usuario': usuario})
+    
 def tarefa_detail(request, id):
     if 'usuario' not in request.session:
         return redirect('login')
@@ -30,15 +30,17 @@ def tarefa_detail(request, id):
     return render(request, 'tarefas/pages/tarefa_detalhe.html', {'tarefa': tarefa, 'is_detail_page': True})
 
 def concluir_tarefa(request, id):
-    if 'usuario' not in request.session:
+    usuario_id = request.session.get('usuario')
+    if not usuario_id:
         return redirect('login')
 
-    usuario_id = request.session['usuario']
     usuario = Usuario.objects.get(pk=usuario_id)
-
     tarefa = get_object_or_404(Tarefas, pk=id)
+    
+    equipes_associadas = tarefa.tarefa_para.all()
+    equipe_usuario = any(usuario in equipe.membros.all() for equipe in equipes_associadas)
 
-    if usuario in tarefa.tarefa_para.first().membros.all():
+    if equipe_usuario:
         if not tarefa.concluida.filter(pk=usuario_id).exists():
             tarefa.concluida.add(usuario)
 
@@ -46,7 +48,7 @@ def concluir_tarefa(request, id):
         resposta_usuario = request.POST.get('alternativa')
         tarefa.resposta_usuario = resposta_usuario
         tarefa.save()
-        
+    
     return redirect(reverse('home'))
 
 def area_usuario(request):
@@ -101,6 +103,7 @@ def criar_equipe(request):
             else:
                 equipe = Equipe(nome_equipe=nome)
                 equipe.save()
+                equipe.membros.add(usuario)
                 return redirect(reverse('home'))
         
         return render(request, 'tarefas/pages/criar_equipe.html')
@@ -336,3 +339,48 @@ def editar_tarefa(request, id):
         return redirect('area_usuario')
 
     return render(request,'tarefas/pages/editar_tarefa.html',{'equipe':equipe,'tarefa':tarefa })
+
+def avisos(request):
+    if 'usuario' not in request.session:
+        return redirect('login')
+
+    usuario_id = request.session['usuario']
+    usuario = get_object_or_404(Usuario, pk=usuario_id)
+    
+    # Obtém todas as equipes do usuário
+    equipes = usuario.equipes.all()
+    
+    # Filtra mensagens que são enviadas para as equipes do usuário
+    mensagens = Mensagem.objects.filter(destinatarios__in=equipes).distinct().order_by('-data_de_criacao')
+
+    return render(request, 'tarefas/pages/avisos.html', {'mensagens': mensagens, 'usuario': usuario, 'equipe':equipes})
+
+
+def enviar_mensagem(request):
+    if 'usuario' not in request.session:
+        return redirect('login')
+
+    usuario_id = request.session['usuario']
+    remetente = get_object_or_404(Usuario, pk=usuario_id)
+    
+    if request.method == 'POST':
+        titulo = request.POST.get('titulo')
+        aviso = request.POST.get('aviso')
+        destinatarios_ids = request.POST.getlist('destinatario')
+        
+        # Cria a mensagem
+        mensagem = Mensagem.objects.create(
+            titulo=titulo,
+            aviso=aviso,
+            remetente=remetente
+        )
+        
+        destinatarios = Equipe.objects.filter(id__in=destinatarios_ids)
+        mensagem.destinatarios.set(destinatarios)  
+        mensagem.save()
+
+        return redirect('home')
+
+    # Obtém a lista de todas as equipes
+    equipes = Equipe.objects.all()
+    return render(request, 'tarefas/pages/enviar_aviso.html', {'remetente': remetente, 'equipes': equipes})
