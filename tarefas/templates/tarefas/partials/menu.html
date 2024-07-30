@@ -10,7 +10,9 @@
     <ul>
         <li><a href="{% url 'home' %}"><i class="fas fa-home"></i> Home</a></li>
         <li><a href="{% url "avisos" %}">Avisos</a></li>
+        {% if usuario.cargo == 'Aluno' %}
         <li><a href="{% url 'area_usuario' %}"><i class="fas fa-user"></i> Área do Usuário</a></li>
+        {% endif %}
         {% if usuario.cargo == 'Professor' %}
         <li><a href="{% url 'criar_equipe' %}">Criar Sala</a></li>
         {% endif %}

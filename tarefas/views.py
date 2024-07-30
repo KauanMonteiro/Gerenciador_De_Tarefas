@@ -15,10 +15,11 @@ def home(request):
 
     usuario_id = request.session['usuario']
     usuario = Usuario.objects.get(pk=usuario_id)
-    
+    if usuario.cargo == 'Professor':
+        return redirect('area_usuario')
     if usuario.equipes.exists():
         equipe_usuario = usuario.equipes.first()
-        tarefas_incompletas = Tarefas.objects.exclude(concluida=usuario).order_by('-id')
+        tarefas_incompletas = Tarefas.objects.exclude(concluida=usuario).filter(rascunho=False).order_by('-id')
         return render(request, 'tarefas/pages/home.html', {'tarefas': tarefas_incompletas, 'usuario': usuario})
     else:
         return render(request, 'tarefas/pages/home.html',{'usuario': usuario})
@@ -26,7 +27,7 @@ def home(request):
 def tarefa_detail(request, id):
     if 'usuario' not in request.session:
         return redirect('login')
-    tarefa = get_object_or_404(Tarefas, pk=id)
+    tarefa = get_object_or_404(Tarefas, pk=id,rascunho=False)
     return render(request, 'tarefas/pages/tarefa_detalhe.html', {'tarefa': tarefa, 'is_detail_page': True})
 
 def concluir_tarefa(request, id):
@@ -35,7 +36,7 @@ def concluir_tarefa(request, id):
         return redirect('login')
 
     usuario = Usuario.objects.get(pk=usuario_id)
-    tarefa = get_object_or_404(Tarefas, pk=id)
+    tarefa = get_object_or_404(Tarefas, pk=id,rascunho=False)
     
     equipes_associadas = tarefa.tarefa_para.all()
     equipe_usuario = any(usuario in equipe.membros.all() for equipe in equipes_associadas)
@@ -63,7 +64,7 @@ def area_usuario(request):
       
         
         for equipe in equipes_usuario:
-            tarefas_equipe = Tarefas.objects.filter(tarefa_para=equipe)
+            tarefas_equipe = Tarefas.objects.filter(tarefa_para=equipe,rascunho=False)
             
             tarefas_nao_concluidas = tarefas_equipe.exclude(concluida=usuario).count()
             tarefas_concluidas = tarefas_equipe.filter(concluida=usuario).count()
@@ -116,7 +117,10 @@ def equipe_detalhe(request, id):
     usuario = Usuario.objects.get(pk=usuario_id)
     
     equipe = get_object_or_404(Equipe, pk=id)
-    tarefas_equipe = Tarefas.objects.filter(tarefa_para=equipe)
+    if usuario.cargo == 'Aluno':
+        tarefas_equipe = Tarefas.objects.filter(tarefa_para=equipe,rascunho=False)
+    else:
+        tarefas_equipe = Tarefas.objects.filter(tarefa_para=equipe)
     
     return render(request, 'tarefas/pages/ver_mais_equipe.html', {'equipe': equipe, 'tarefas': tarefas_equipe, 'usuario': usuario})
     
@@ -162,27 +166,39 @@ def adicionar_tarefas(request):
         alternativa4 = request.POST.get('alternativa4')
         alternativa5 = request.POST.get('alternativa5')
         alternativa_correta = request.POST.get('alternativa_correta')
-
+        action = request.POST.get('action') 
+        
         if not (titulo and descricao and tarefa_para):
             return redirect('adicionar_tarefas')
         else:
-            tarefa = Tarefas.objects.create(titulo=titulo,
-                    descricao=descricao,
-                    imagem= imagem,
-                    data_limite=data_limite,
-                    autor=usuario,alternativa1=alternativa1,
-                    alternativa2 =alternativa2,
-                    alternativa3 = alternativa3,
-                    alternativa4 = alternativa4,
-                    alternativa5 = alternativa5 ,
-            alternativa_correta=alternativa_correta)
+            rascunho = action == 'save_draft'  
+            tarefa = Tarefas.objects.create(
+                titulo=titulo,
+                descricao=descricao,
+                imagem=imagem,
+                data_limite=data_limite,
+                autor=usuario,
+                alternativa1=alternativa1,
+                alternativa2=alternativa2,
+                alternativa3=alternativa3,
+                alternativa4=alternativa4,
+                alternativa5=alternativa5,
+                alternativa_correta=alternativa_correta,
+                rascunho=rascunho  
+            )
             
             for equipe_id in tarefa_para:
                 equipe_obj = Equipe.objects.get(pk=equipe_id)
                 tarefa.tarefa_para.add(equipe_obj)
+                
             tarefa.save()
-            return redirect('home')
+            if rascunho:
+                return redirect('area_usuario')  
+            else:
+                return redirect('home')  
+                
     return render(request, 'tarefas/pages/adicionar_tarefa.html', {'equipes': equipe})
+
 
 def estatisticas(request, equipe_id):
     equipe = get_object_or_404(Equipe, pk=equipe_id)
@@ -195,7 +211,7 @@ def estatisticas(request, equipe_id):
         'erradas': 0,
     }
     for usuario in membros_equipe:
-        tarefas_usuario = Tarefas.objects.filter(tarefa_para=equipe)
+        tarefas_usuario = Tarefas.objects.filter(tarefa_para=equipe,rascunho=False)
         tarefas_concluidas = tarefas_usuario.filter(concluida=usuario)
         tarefas_nao_concluidas = tarefas_usuario.exclude(concluida=usuario).count()
  
@@ -271,7 +287,7 @@ def download_excel(request, equipe_id):
 
     row_num = 2
     for usuario in membros_equipe:
-        tarefas_usuario = Tarefas.objects.filter(tarefa_para=equipe)
+        tarefas_usuario = Tarefas.objects.filter(tarefa_para=equipe,rascunho=False)
         tarefas_concluidas = tarefas_usuario.filter(concluida=usuario)
         tarefas_nao_concluidas = tarefas_usuario.exclude(concluida=usuario)
 
@@ -301,7 +317,8 @@ def download_excel(request, equipe_id):
     return response
 
 def editar_tarefa(request, id):
-    tarefa = get_object_or_404(Tarefas, pk = id)
+    tarefa = get_object_or_404(Tarefas, pk=id)
+    
     if 'usuario' not in request.session:
         return redirect('login')
     
@@ -321,9 +338,12 @@ def editar_tarefa(request, id):
         alternativa4 = request.POST.get('alternativa4')
         alternativa5 = request.POST.get('alternativa5')
         alternativa_correta = request.POST.get('alternativa_correta')
+        action = request.POST.get('action')  
+        
+        if imagem:
+            tarefa.imagem = imagem
 
         tarefa.titulo = titulo
-        tarefa.imagem = imagem
         tarefa.descricao = descricao
         tarefa.data_limite = data_limite
         tarefa.tarefa_para.set(Equipe.objects.filter(id__in=tarefa_para))
@@ -333,12 +353,18 @@ def editar_tarefa(request, id):
         tarefa.alternativa4 = alternativa4
         tarefa.alternativa5 = alternativa5
         tarefa.alternativa_correta = alternativa_correta
-
+        
+        tarefa.rascunho = action == 'save_draft' 
+        
         tarefa.save()
 
-        return redirect('area_usuario')
+        if tarefa.rascunho:
+            return redirect('area_usuario') 
+        else:
+            return redirect('home') 
 
-    return render(request,'tarefas/pages/editar_tarefa.html',{'equipe':equipe,'tarefa':tarefa })
+    return render(request, 'tarefas/pages/editar_tarefa.html', {'equipe': equipe, 'tarefa': tarefa})
+
 
 def avisos(request):
     if 'usuario' not in request.session:
@@ -354,7 +380,6 @@ def avisos(request):
     mensagens = Mensagem.objects.filter(destinatarios__in=equipes).distinct().order_by('-data_de_criacao')
 
     return render(request, 'tarefas/pages/avisos.html', {'mensagens': mensagens, 'usuario': usuario, 'equipe':equipes})
-
 
 def enviar_mensagem(request):
     if 'usuario' not in request.session:
@@ -381,6 +406,11 @@ def enviar_mensagem(request):
 
         return redirect('home')
 
-    # Obtém a lista de todas as equipes
     equipes = Equipe.objects.all()
     return render(request, 'tarefas/pages/enviar_aviso.html', {'remetente': remetente, 'equipes': equipes})
+
+def alterar_rascunho(request, id):
+    tarefa = get_object_or_404(Tarefas, id=id)
+    tarefa.rascunho = not tarefa.rascunho
+    tarefa.save()
+    return redirect('home')
