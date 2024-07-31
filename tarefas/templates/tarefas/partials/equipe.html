@@ -5,6 +5,7 @@
   </div>
 
   <div class="equipe-content">
+    {% if usuario.cargo == 'Aluno' %}
     <div class="equipe-meta-container">
       <div class="tarefas-nao-concluidas">
         <span>Tarefas não concluídas: {{ estatistica.tarefas_nao_concluidas }}</span>
@@ -16,6 +17,7 @@
         <span>Tarefas concluídas: {{ estatistica.tarefas_concluidas }}</span>
       </div>
     </div>
+    {% endif %}
     <div class="equipe-detalhe">
       <a href="{% url 'equipe_detalhe' estatistica.equipe.id %}">
         <button><i class="fas fa-eye"></i> Ver Mais</button>
