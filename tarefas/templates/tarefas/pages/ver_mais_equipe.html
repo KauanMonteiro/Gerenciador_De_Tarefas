@@ -1,6 +1,7 @@
 {% extends "global/base.html" %}
 
 {% block content %}
+{% include "tarefas/partials/menu.html" %}
 {% if usuario.cargo == 'Aluno' %}
 {% for tarefa in tarefas %}
     {% include "tarefas/partials/tarefa.html" %}
